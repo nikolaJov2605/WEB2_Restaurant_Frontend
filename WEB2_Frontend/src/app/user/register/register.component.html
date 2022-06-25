@@ -1,0 +1,46 @@
+<div class="registration-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+        <mat-card-header>
+          <mat-card-title>Register</mat-card-title>
+        </mat-card-header>
+        <form class="example-form" [formGroup]="registrationForm">
+          <mat-card-content>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Username" class="form-control" formControlName="UserName">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Email" type="email" formControlName="Email">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Name" class="form-control" formControlName="Name">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Last name" class="form-control" formControlName="LastName">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Address" class="form-control" formControlName="Address">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Date of birth" type="date" class="form-control" formControlName="Date">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Password" type="password" class="form-control" formControlName="Password">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Repeat password" type="password" class="form-control" formControlName="RepeatedPassword">
+            </mat-form-field>
+            Registering as:
+            <br>
+            <mat-radio-group class="example-radio-group" formControlName="AccountType" aria-label="Registering as">
+              <br>
+              <mat-radio-button value="customer">Customer</mat-radio-button>
+              <br>
+              <mat-radio-button value="deliverer">Deliverer</mat-radio-button>
+            </mat-radio-group>
+            
+          </mat-card-content>
+          <button mat-stroked-button type="submit" color="accent" class="btn-block" (click)="onSubmit()">Register</button>
+        </form>
+        <a routerLink="../login" class="btn btn-link">Have an account? Log in!</a>
+      </mat-card>
+</div>
