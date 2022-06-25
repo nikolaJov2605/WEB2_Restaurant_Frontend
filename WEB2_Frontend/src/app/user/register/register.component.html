@@ -1,4 +1,4 @@
-<div class="registration-wrapper" fxLayout="row" fxLayoutAlign="center center">
+<!--div class="registration-wrapper" fxLayout="row" fxLayoutAlign="center center">
     <mat-card class="box">
         <mat-card-header>
           <mat-card-title>Register</mat-card-title>
@@ -43,4 +43,97 @@
         </form>
         <a routerLink="../login" class="btn btn-link">Have an account? Log in!</a>
       </mat-card>
+</div-->
+
+<div class="container">
+  <mat-card class="box" style="font-family: Comic Sans MS, Comic Sans, cursive;">
+    <mat-card-header>
+      <mat-card-title>Registracija</mat-card-title>
+    </mat-card-header>
+    <form [formGroup]="registrationForm">
+      <mat-card-content>
+        <table align="center">
+          <tr>
+              <td>
+                <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
+                  <input matInput placeholder="Korisničko ime" class="form-control" formControlName="UserName">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
+                  <input matInput placeholder="Email" class="form-control"  type="email" formControlName="Email">
+                </mat-form-field>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
+                  <input matInput placeholder="Lozinka" type="password" class="form-control" formControlName="Password">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
+                  <input matInput placeholder="Ponovite lozinku" type="password" class="form-control" formControlName="RepeatedPassword">
+                </mat-form-field>
+              </td>
+              
+          </tr>
+          <tr>
+              <td>
+                <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
+                  <input matInput placeholder="Ime" class="form-control" formControlName="Name">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
+                  <input matInput placeholder="Prezime" class="form-control" formControlName="LastName">
+                </mat-form-field>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
+                  <input matInput placeholder="Datum rođenja" type="date" class="form-control" formControlName="Date">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
+                  <input matInput placeholder="Adresa" class="form-control" formControlName="Address">
+                </mat-form-field>
+              </td>
+          </tr>
+          <tr>
+              <th colspan="2" align="center">
+                  <mat-form-field appearance="fill" class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive; width: 100%;">
+                    <mat-label>Tip korisnika:</mat-label>
+                    <select matNativeControl required>
+                      <option value="deliverer">Dostavljač</option>
+                      <option value="customer">Korisnik</option>
+                    </select>
+                  </mat-form-field>
+                  <!--div *ngIf="registrationForm.controls.address.invalid">
+                      Molimo Vas da unesete svoje korisničko ime.
+                  </div-->
+              </th>
+          </tr>
+          <tr>
+              <th colspan="2" align="center">
+                  <!--input type="file" (change)="onFileSelected($event)"-->
+              </th>
+          </tr>
+          <tr>
+              <th colspan="2" align="center">
+                  <button style="width: 100%; font-family: Comic Sans MS, Comic Sans, cursive;" mat-stroked-button color="primary" type="submit" class="btn-block" (click)="onSubmit()">Registracija</button>
+              </th>
+          </tr>
+          <tr>
+              <p>Imate nalog? <a routerLink="../login">Prijavite se</a></p>
+          </tr>
+          
+      </table>
+      </mat-card-content>
+        
+    </form>
+  </mat-card>
+  
 </div>

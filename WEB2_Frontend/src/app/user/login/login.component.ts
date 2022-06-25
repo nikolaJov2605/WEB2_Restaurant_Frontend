@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/shared/services/user.service';
 import { LoginModel } from 'src/app/shared/models/login.model';
@@ -11,9 +11,9 @@ import { TokenModel } from 'src/app/shared/models/token.model';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  loginForm = new FormGroup({
-    email : new FormControl("", Validators.required),
-    password : new FormControl("", Validators.required),
+  loginForm = new UntypedFormGroup({
+    email : new UntypedFormControl("", [Validators.email, Validators.required]),
+    password : new UntypedFormControl("", Validators.required),
   });
   constructor(private service: UserService, private router: Router) { }
 

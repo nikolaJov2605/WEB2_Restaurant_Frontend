@@ -1,19 +1,27 @@
-<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
-    <mat-card class="box">
-      <mat-card-header>
-        <mat-card-title>Sign in</mat-card-title>
-      </mat-card-header>
-      <form [formGroup]="loginForm" class="example-form">
-        <mat-card-content>
-          <mat-form-field class="example-full-width">
-            <input matInput class="form-control" type="email" formControlName="email" placeholder="Email">
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <input matInput type="password" class="form-control"  formControlName="password" placeholder="Password">
-          </mat-form-field>
-        </mat-card-content>
-        <button mat-stroked-button color="accent" type="submit" class="btn-block" (click)="onSubmit()">Log in</button>
-      </form>
-      <a routerLink="../register" class="btn btn-link">Don't have an account? Register!</a>
-    </mat-card>
-  </div>
+<div class="container">
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title align="center">Prijava</mat-card-title>
+    </mat-card-header>
+    <form [formGroup]="loginForm">
+      <mat-card-content>
+        <table align="center">
+          <tr>
+            <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
+              <input matInput class="form-control" type="email" formControlName="email" placeholder="Email">
+            </mat-form-field>
+          <tr>
+            <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
+              <input matInput type="password" class="form-control"  formControlName="password" placeholder="Password">
+            </mat-form-field>
+          <tr>
+              <button style="width: 100%; font-family: Comic Sans MS, Comic Sans, cursive;" mat-stroked-button color="primary" type="submit" class="btn-block" (click)="onSubmit()" >Prijava</button>
+          </tr>
+          <tr>
+              <p style="font-family: Comic Sans MS, Comic Sans, cursive;">Niste registrivani? <a routerLink="../register">Registrujte se</a></p>
+          </tr>
+      </table>
+      </mat-card-content>
+    </form>
+  </mat-card>
+</div>

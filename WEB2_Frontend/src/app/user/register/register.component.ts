@@ -1,6 +1,6 @@
 import { UserService } from './../../shared/services/user.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegistrationModel } from 'src/app/shared/models/registration.model';
 
@@ -11,19 +11,19 @@ import { RegistrationModel } from 'src/app/shared/models/registration.model';
 })
 export class RegisterComponent implements OnInit {
 
-  registrationForm = new FormGroup({
-    UserName: new FormControl('', Validators.required),
-    Name: new FormControl('', Validators.required),
-    LastName: new FormControl('', Validators.required),
-    Password: new FormControl('', [Validators.required, Validators.minLength(4)]),
-    RepeatedPassword: new FormControl('', [Validators.required, Validators.minLength(4)]),
-    Email: new FormControl('', Validators.email),
-    Address: new FormControl('', Validators.required),
-    Date: new FormControl('', Validators.required),
-    AccountType: new FormControl('', Validators.required)
+  registrationForm = new UntypedFormGroup({
+    UserName: new UntypedFormControl('', Validators.required),
+    Name: new UntypedFormControl('', Validators.required),
+    LastName: new UntypedFormControl('', Validators.required),
+    Password: new UntypedFormControl('', [Validators.required, Validators.minLength(4)]),
+    RepeatedPassword: new UntypedFormControl('', [Validators.required, Validators.minLength(4)]),
+    Email: new UntypedFormControl('', [Validators.email, Validators.required]),
+    Address: new UntypedFormControl('', Validators.required),
+    Date: new UntypedFormControl('', Validators.required),
+    AccountType: new UntypedFormControl('', Validators.required)
   });
 
-  constructor(public service: UserService, private router: Router, private fomBuilder: FormBuilder) { }
+  constructor(public service: UserService, private router: Router, private fomBuilder: UntypedFormBuilder) { }
 
   ngOnInit(): void {
   }
