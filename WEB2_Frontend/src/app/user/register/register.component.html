@@ -106,14 +106,11 @@
               <th colspan="2" align="center">
                   <mat-form-field appearance="fill" class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive; width: 100%;">
                     <mat-label>Tip korisnika:</mat-label>
-                    <select matNativeControl required>
+                    <select matNativeControl required  class="form-control" formControlName="UserType">
+                      <option value="customer">Kupac</option>
                       <option value="deliverer">Dostavljač</option>
-                      <option value="customer">Korisnik</option>
                     </select>
                   </mat-form-field>
-                  <!--div *ngIf="registrationForm.controls.address.invalid">
-                      Molimo Vas da unesete svoje korisničko ime.
-                  </div-->
               </th>
           </tr>
           <tr>

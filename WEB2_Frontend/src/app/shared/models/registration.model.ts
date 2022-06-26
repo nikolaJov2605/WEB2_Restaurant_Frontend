@@ -1,11 +1,11 @@
 export class RegistrationModel{
-    email: string="";
-    username:string = "";
+    username: string = "";
+    password: string = "";
     name: string = "";
     lastname: string = "";
-    password: string = "";
-    repeatedPassword: string = "";
-    address: string ="";
-    dateOfBirth: Date = new Date;
-    accountType: string ="";
+    email: string = "";
+    address: string = "";
+    userType: string = "";
+    verified: boolean = false;
+    birthDate: Date = new Date;
 }
