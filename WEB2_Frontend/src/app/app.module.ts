@@ -14,13 +14,17 @@ import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
+import { NavbarComponent } from './/shared/constants/navbar/navbar.component';
+import { DefaultComponent } from './layouts/default/default.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    NavbarComponent,
+    DefaultComponent
   ],
   imports: [
     BrowserModule,
