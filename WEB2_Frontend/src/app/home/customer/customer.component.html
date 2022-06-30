@@ -1,0 +1,84 @@
+<div class="content">
+    <div class="grid-container place">
+        <mat-accordion hideToggle>
+            <mat-expansion-panel class="order" >
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Moja narudžbina</mat-panel-title>
+                    <mat-panel-description *ngIf="foodTable.length == 0">
+                        Vaša narudžbina je trenutno prazna.
+                    </mat-panel-description>
+                    <mat-panel-description *ngIf="foodTable.length != 0">
+                        Broj artikala u narudžbini: {{foodTable.length}}.
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <section class="example-section">
+                    <table mat-table [dataSource]="dataFoodList">
+                        <ng-container matColumnDef="number">
+                            <th mat-header-cell *matHeaderCellDef> No. </th>
+                            <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+                          </ng-container>
+                        <ng-container matColumnDef="name">
+                          <th mat-header-cell *matHeaderCellDef> Naziv </th>
+                          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        </ng-container>
+                    
+                        <ng-container matColumnDef="ingredients">
+                          <th mat-header-cell *matHeaderCellDef> Dodaci </th>
+                          <td mat-cell *matCellDef="let element"> {{element.ingredients}} </td>
+                        </ng-container>
+                    
+                        <ng-container matColumnDef="amount">
+                          <th mat-header-cell *matHeaderCellDef> Količina </th>
+                          <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="price">
+                            <th mat-header-cell *matHeaderCellDef> Cena </th>
+                            <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+                          </ng-container>
+                        <ng-container matColumnDef="button">
+                            <th mat-header-cell *matHeaderCellDef></th>
+                            <td mat-cell *matCellDef="let element"> <button mat-raised-button color="warn" (click)="deleteRow(element)">Obriši</button></td>
+                          </ng-container>
+                    
+                        <tr mat-header-row *matHeaderRowDef="displayedFoodColumnsList;"></tr>
+                        <tr mat-row *matRowDef="let element; columns: displayedFoodColumnsList;"></tr>
+                    
+                      </table>
+                </section><br>
+                <mat-label> *Poštovani kupci, dostava se naknadno naplaćuje po fiksnoj ceni od {{deliveryFee}},00 rsd</mat-label><br><br>
+                <mat-label *ngIf="foodTable.length != 0">Ukupna cena sa dostavom: </mat-label><mat-label id="fullPrice" *ngIf="foodTable.length != 0">{{fullOrderPrice}},00 rsd</mat-label><br><br>
+                <button mat-raised-button color="warn" *ngIf="foodTable.length != 0">Poruči</button>
+            </mat-expansion-panel>
+        </mat-accordion>
+        <mat-grid-list cols="3" rowHeight="1:1"  class="grid">
+            <ng-container *ngFor="let food of allFood">
+                <mat-grid-tile>
+                    <mat-card>
+                        <mat-card-title class="title">{{food.name}}</mat-card-title>
+                        <mat-card-content class="content">
+                            <mat-label *ngIf="food.unitOfMeasure == 'gram'">Količina: {{food.quantity}} grama</mat-label><br>
+                            <mat-label *ngIf="food.unitOfMeasure == 'piece'">Količina: {{food.quantity}} kom</mat-label><br>
+                            <mat-label>Cena: {{food.price}} din</mat-label><br>
+                            <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
+                                <input matInput type="number" id="{{food.id}}" placeholder="Količina" min="1" max="50" aria-required="true">
+                            </mat-form-field>
+                            <mat-accordion>
+                                <mat-expansion-panel hideToggle class="ingredient-list">
+                                    <mat-expansion-panel-header>
+                                      <mat-panel-title>Izaberite dodatke</mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <section class="example-section ingredients">
+                                        <ng-container *ngFor="let ingredient of allIngrediens">
+                                            <mat-checkbox class="example-margin" (change)="onCheckBoxChange(ingredient.name, $event)">{{ingredient.name}}</mat-checkbox><br>
+                                        </ng-container>
+                                    </section>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                            <button mat-raised-button color="primary" class="btn-add" (click)="onAddToOrder(food.id)">Dodaj u narudžbinu</button>
+                        </mat-card-content>
+                    </mat-card>
+                </mat-grid-tile>
+            </ng-container>
+        </mat-grid-list>
+    </div>
+</div>

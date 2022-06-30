@@ -15,8 +15,16 @@ import { UserComponent } from './user/user.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
 import { NavbarComponent } from './/shared/constants/navbar/navbar.component';
-import { DefaultComponent } from './layouts/default/default.component';
-import { HomeComponent } from './layouts/home/home.component';
+import { environment } from 'src/environments/environment';
+import { JwtModule } from '@auth0/angular-jwt';
+
+import { HomeModule } from './home/home.module';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthInterceptor } from './auth/auth.interceptor';
+
+export function tokenGetter() {
+  return localStorage.getItem("token");
+}
 
 @NgModule({
   declarations: [
@@ -25,8 +33,6 @@ import { HomeComponent } from './layouts/home/home.component';
     LoginComponent,
     RegisterComponent,
     NavbarComponent,
-    DefaultComponent,
-    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -36,8 +42,22 @@ import { HomeComponent } from './layouts/home/home.component';
     BrowserAnimationsModule,
     AngularMaterialModule,
     HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: environment.allowedDomains
+      }
+    }),
+    HomeModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    CookieService,
+    {
+       provide: HTTP_INTERCEPTORS,
+       useClass: AuthInterceptor,
+       multi: true,
+    }
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

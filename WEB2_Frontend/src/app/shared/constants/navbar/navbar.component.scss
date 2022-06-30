@@ -4,7 +4,8 @@
     display:inline;   
     overflow:visible;
     background-color: black;
-    position: fixed; /* Set the navbar to fixed position */
+    position: absolute;
+    //position: fixed; /* Set the navbar to fixed position */
     top: 0; /* Position the navbar at the top of the page */
     clear: both;
 }
@@ -29,6 +30,7 @@
     //margin: 0;
     //position: fixed; /* Set the navbar to fixed position */
     //top: 0; /* Position the navbar at the top of the page */
+    
 }
 
 .matcard-navbar{
@@ -36,6 +38,8 @@
     width: 60%;
     height: 25px;
     margin-left: -15px;
+    position: fixed;
+    top: 30px;
 }
 
 .list{
@@ -69,3 +73,12 @@
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
   }
+
+.page-header{
+    height: 170px;
+    width: 100%;
+    background: inherit;
+    overflow: hidden;
+    position:absolute;
+    z-index: 10000;
+}

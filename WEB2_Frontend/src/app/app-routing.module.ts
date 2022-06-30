@@ -1,4 +1,5 @@
-import { HomeComponent } from './layouts/home/home.component';
+import { CustomerComponent } from './home/customer/customer.component';
+import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
 import { UserComponent } from './user/user.component';
@@ -15,7 +16,12 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent }
     ]
   },
-  { path:'home', component: HomeComponent }
+  { 
+    path:'home', component: HomeComponent,
+    children: [
+      { path: 'customer', component: CustomerComponent }
+    ]
+  }
 ];
 
 @NgModule({
