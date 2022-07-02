@@ -9,7 +9,7 @@ import { CustomerComponent } from './customer/customer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from '../angular-material.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 
 import { AppRoutingModule } from '../app-routing.module';
 
@@ -24,7 +24,8 @@ import { AppRoutingModule } from '../app-routing.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule 
   ],
   providers:[
     CookieService,

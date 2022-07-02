@@ -41,13 +41,29 @@
                           </ng-container>
                     
                         <tr mat-header-row *matHeaderRowDef="displayedFoodColumnsList;"></tr>
-                        <tr mat-row *matRowDef="let element; columns: displayedFoodColumnsList;"></tr>
-                    
+                        <tr mat-row *matRowDef="let element; columns: displayedFoodColumnsList;"></tr>\
                       </table>
                 </section><br>
                 <mat-label> *Poštovani kupci, dostava se naknadno naplaćuje po fiksnoj ceni od {{deliveryFee}},00 rsd</mat-label><br><br>
                 <mat-label *ngIf="foodTable.length != 0">Ukupna cena sa dostavom: </mat-label><mat-label id="fullPrice" *ngIf="foodTable.length != 0">{{fullOrderPrice}},00 rsd</mat-label><br><br>
-                <button mat-raised-button color="warn" *ngIf="foodTable.length != 0">Poruči</button>
+                
+                <form [formGroup]="orderForm">
+                    <mat-card-content>
+                      <table>
+                        <tr>
+                          <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;" *ngIf="foodTable.length != 0">
+                            <input matInput placeholder="Adresa" class="form-control" formControlName="address">
+                          </mat-form-field>
+                        <tr>
+                          <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;" *ngIf="foodTable.length != 0">
+                            <input matInput placeholder="Komentar" class="form-control" formControlName="comment">
+                          </mat-form-field>
+                        </tr>
+                    </table>
+                    </mat-card-content>
+                  </form>
+                
+                <button mat-raised-button color="warn" (click) = "createOrder()" *ngIf="foodTable.length != 0">Poruči</button>
             </mat-expansion-panel>
         </mat-accordion>
         <mat-grid-list cols="3" rowHeight="1:1"  class="grid">

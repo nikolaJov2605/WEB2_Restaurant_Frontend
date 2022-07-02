@@ -1,3 +1,4 @@
+import { OrderService } from './../../shared/services/order.service';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
 import { FoodTableModel } from './../../shared/models/foodTable.model';
 import { IngredientModel } from './../../shared/models/ingredient.model';
@@ -5,6 +6,9 @@ import { FoodService } from './../../shared/services/food.service';
 import { Component, OnInit } from '@angular/core';
 import { FoodModel } from 'src/app/shared/models/food.model';
 import { MatTableDataSource } from '@angular/material/table';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { OrderModel } from 'src/app/shared/models/order.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer',
@@ -12,8 +16,15 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./customer.component.scss']
 })
 export class CustomerComponent implements OnInit {
+
+  orderForm = new UntypedFormGroup({
+    address : new UntypedFormControl("", [Validators.required]),
+    comment : new UntypedFormControl("", Validators.required),
+  });
+
   ingredientArray: string[] = [];
   concreteFood: FoodModel = new FoodModel;
+  orderFood: FoodModel = new FoodModel;
   selectedFood: FoodModel[] = [];
   allFood: FoodModel[] = [];
   allIngrediens: IngredientModel[] = [];
@@ -29,7 +40,7 @@ export class CustomerComponent implements OnInit {
   fullOrderPrice: number = 0;
   deliveryFee: number = 150;
 
-  constructor(private foodService: FoodService) { }
+  constructor(private foodService: FoodService, private orderService: OrderService, private router: Router) { }
 
   ngOnInit(): void {
     this.dataFoodList.data = this.foodTable;
@@ -113,7 +124,8 @@ export class CustomerComponent implements OnInit {
         //this.foodTableModel.ingredients = "";
         
         //alert(amountValue);
-        this.foodTable.push({number: modelNumber, name: modelName, amount: amountValue, ingredients: modelIngredients, price: modelPrice});
+        //alert(id);
+        this.foodTable.push({id: id, number: modelNumber, name: modelName, amount: amountValue, ingredients: modelIngredients, price: modelPrice});
         this.dataFoodList.data = this.foodTable;
         console.log(this.foodTable);
         
@@ -182,6 +194,98 @@ export class CustomerComponent implements OnInit {
     });
     
     this.fullOrderPrice = price + this.deliveryFee;
+  }
+
+
+
+
+  createOrder(){
+    let order: OrderModel = new OrderModel();
+    order.address = this.orderForm.controls['address'].value;
+    order.comment = this.orderForm.controls['comment'].value;
+    var email = localStorage.getItem('email');
+    if(email != null)
+      order.userEmail = email;
+    order.accepted = false;
+
+
+    this.foodTable.forEach(element => {
+      let iden = element.id;
+      //alert("id: " + iden);
+      var array = element.name.split(" ");
+      let foodName = "";
+      if(array.length < 3)
+      {
+        foodName = array[0].substring(0, array[0].length - 1);
+      }
+      else
+      {
+        let counter = 1;
+        foodName += array[0];
+        for(let i = 1; i < array.length - 2; i++)
+        {
+          foodName += ' ' + array[i];
+          counter++;
+        }
+        foodName += ' ' + array[array.length - 2].substring(0, array[counter].length - 1);
+      }
+      //alert(foodName);
+      
+      let quantity = "";
+      let unitOfMeasureF = "";
+      let amount = element.amount;
+
+      if(array[array.length - 1][array[array.length - 1].length - 1] == 'g')
+      {
+        unitOfMeasureF = "gram";
+        let temp = "";
+        temp = array[array.length - 1];
+        quantity = temp.substring(0, temp.length - 1);
+      }
+      else
+      {
+        unitOfMeasureF = "piece";
+        let temp = "";
+        temp = array[array.length - 1];
+        quantity = temp.substring(0, temp.length - 3);
+      }
+      //alert(unitOfMeasureF);
+      //alert(quantity);
+      let quantityNum = parseFloat(quantity);
+      let priceF = element.price / element.amount;
+
+      this.orderFood.id = element.id;
+      this.orderFood.name = foodName;
+      this.orderFood.quantity = quantityNum;
+      this.orderFood.price = priceF;
+      this.orderFood.unitOfMeasure = unitOfMeasureF;
+
+      var ingrArr = element.ingredients.split(", ");
+      var ingredientsArray: IngredientModel[] = [];
+      this.allIngrediens.forEach(ingr => {
+        if(ingrArr.includes(ingr.name))
+        {
+          ingredientsArray.push(ingr);
+        }
+      });
+
+      order.orderedFood.push({id: iden, name: foodName, quantity: quantityNum, price: priceF, unitOfMeasure: unitOfMeasureF, amount: amount, ingredients: ingredientsArray});
+      console.log(order);
+      this.orderFood.ingredients = ingredientsArray;
+
+    });
+
+    this.orderService.createOrder(order).subscribe(
+      (data : boolean) => {
+        window.location.reload();
+        //this.router.navigateByUrl('home/customer');
+        //alert(data);
+      },
+      error => {
+        console.log(order);
+          alert('Narudžbina neuspešna.');
+      }
+    );
   }
 
 }
