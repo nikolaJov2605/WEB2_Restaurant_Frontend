@@ -17,6 +17,10 @@ export class OrderService{
         return this.http.post<boolean>(environment.serverURL + '/api/orders/create-order', order);
     }
 
+    getAllMyOrders(email: string) : Observable<OrderModel[]>{
+        return this.http.get<OrderModel[]>(environment.serverURL + `/api/orders/${email}`);
+    }
+
     /*getNewOrders() : Observable<Order[]>{
         return this.http.get<Order[]>(environment.serverURL + '/api/orders/newOrders');
 
