@@ -1,3 +1,4 @@
+import { LayoutsModule } from './layouts/layouts.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
@@ -14,11 +15,10 @@ import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
-import { NavbarComponent } from './/shared/constants/navbar/navbar.component';
+import { NavbarComponent } from './navbar/navbar.component';
 import { environment } from 'src/environments/environment';
 import { JwtModule } from '@auth0/angular-jwt';
 
-import { HomeModule } from './home/home.module';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthInterceptor } from './auth/auth.interceptor';
 
@@ -48,7 +48,7 @@ export function tokenGetter() {
         allowedDomains: environment.allowedDomains
       }
     }),
-    HomeModule
+    LayoutsModule
   ],
   providers: [
     CookieService,

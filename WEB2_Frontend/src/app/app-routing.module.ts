@@ -1,5 +1,8 @@
-import { CustomerComponent } from './home/customer/customer.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './layouts/customer/home/home.component';
+import { AuthGuard } from './auth/auth.guard';
+import { OrdersComponent } from './layouts/customer/orders/orders.component';
+import { LayoutsComponent } from './layouts/layouts.component';
+import { CustomerComponent } from './layouts/customer/customer.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
 import { UserComponent } from './user/user.component';
@@ -17,9 +20,16 @@ const routes: Routes = [
     ]
   },
   { 
-    path:'home', component: HomeComponent,
+    path:'layouts', component: LayoutsComponent,
     children: [
-      { path: 'customer', component: CustomerComponent }
+      { 
+        path: 'customer', component: CustomerComponent,
+        children:[
+          { path: 'home', component: HomeComponent },
+          { path: 'orders', component: OrdersComponent },
+
+        ] 
+      }
     ]
   }
 ];

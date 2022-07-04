@@ -1,8 +1,8 @@
-import { OrderService } from './../../shared/services/order.service';
+import { OrderService } from '../../shared/services/order.service';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
-import { FoodTableModel } from './../../shared/models/foodTable.model';
-import { IngredientModel } from './../../shared/models/ingredient.model';
-import { FoodService } from './../../shared/services/food.service';
+import { FoodTableModel } from '../../shared/models/foodTable.model';
+import { IngredientModel } from '../../shared/models/ingredient.model';
+import { FoodService } from '../../shared/services/food.service';
 import { Component, OnInit } from '@angular/core';
 import { FoodModel } from 'src/app/shared/models/food.model';
 import { MatTableDataSource } from '@angular/material/table';

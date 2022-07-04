@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (localStorage.getItem('token') != null)
-      this.router.navigateByUrl('home');
+      this.router.navigateByUrl('layouts');
   }
 
   onSubmit() {
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       (data : TokenModel) => {
         localStorage.setItem('token', data.token);
         localStorage.setItem('email', login.email);
-        this.router.navigateByUrl('home');
+        this.router.navigateByUrl('layouts');
       },
       error => {
           alert('Authentication failed.')
