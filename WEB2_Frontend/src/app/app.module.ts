@@ -1,4 +1,5 @@
-import { LayoutsModule } from './layouts/layouts.module';
+import { CustomerComponent } from './layouts/customer/customer.component';
+import { CustomerModule } from './layouts/customer/customer.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
@@ -21,6 +22,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 
 import { CookieService } from 'ngx-cookie-service';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { RolesService } from './auth/roles.service';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -33,6 +35,7 @@ export function tokenGetter() {
     LoginComponent,
     RegisterComponent,
     NavbarComponent,
+    CustomerComponent
   ],
   imports: [
     BrowserModule,
@@ -48,9 +51,10 @@ export function tokenGetter() {
         allowedDomains: environment.allowedDomains
       }
     }),
-    LayoutsModule
+    CustomerModule,
   ],
   providers: [
+    //RolesService,
     CookieService,
     {
        provide: HTTP_INTERCEPTORS,

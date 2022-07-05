@@ -6,6 +6,11 @@ export class OrderModel{
     comment: string = "";
     address: string = "";
     accepted: boolean = false;
+    timePosted: Date = new Date;
+    timeAccepted: Date = new Date;
+    timeDelivered: Date = new Date;
+    delivered: boolean = false;
+    price: number = 0;
     orderedFood: Array<FoodModel> = [];
 }
 

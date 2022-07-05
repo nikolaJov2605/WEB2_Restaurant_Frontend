@@ -52,6 +52,18 @@
     padding: 10px;
 }
 
-table {
+table{
+    margin: 0 auto;
     width: 100%;
-  }
+    text-align: center;
+    font-family: Comic Sans MS, Comic Sans, cursive;
+}
+
+th{
+    width: auto;
+    text-align: center;
+}
+td {
+    text-align: center;
+    white-space:pre;
+}

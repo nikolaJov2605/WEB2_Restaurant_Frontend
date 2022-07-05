@@ -1,42 +1,37 @@
-<div class="container">
+<!--div class="container"-->
     <mat-card class="box place">
         <mat-card-header>
             <mat-card-title align="center">Moje narudžbine</mat-card-title>
         </mat-card-header>
 
         <mat-card-content>
-            <!--table mat-table [dataSource]="dataFoodList">
-                <ng-container matColumnDef="number">
-                    <th mat-header-cell *matHeaderCellDef> No. </th>
-                    <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+            <table mat-table [dataSource]="orderDataSource" class="table">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center; width: 6%;"> ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
                 </ng-container>
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef> Naziv </th>
-                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                <ng-container matColumnDef="food">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Vreme kreiranja narudžbine </th>
+                    <td mat-cell *matCellDef="let element" style="text-align: left; padding-left: 40px;"> {{element.food}} </td>
+                </ng-container>
+                <ng-container matColumnDef="timePosted">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Vreme kreiranja narudžbine </th>
+                    <td mat-cell *matCellDef="let element"> {{element.timePosted}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="ingredients">
-                    <th mat-header-cell *matHeaderCellDef> Dodaci </th>
-                    <td mat-cell *matCellDef="let element"> {{element.ingredients}} </td>
+                <ng-container matColumnDef="timeDelivered">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Vreme dostave </th>
+                    <td mat-cell *matCellDef="let element"> {{element.timeDelivered}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="amount">
-                    <th mat-header-cell *matHeaderCellDef> Količina </th>
-                    <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
-                </ng-container>
                 <ng-container matColumnDef="price">
-                    <th mat-header-cell *matHeaderCellDef> Cena </th>
-                    <td mat-cell *matCellDef="let element"> {{element.price}} </td>
-                </ng-container>
-                <ng-container matColumnDef="button">
-                    <th mat-header-cell *matHeaderCellDef></th>
-                    <td mat-cell *matCellDef="let element"> <button mat-raised-button color="warn"
-                            (click)="deleteRow(element)">Obriši</button></td>
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Cena (rsd) </th>
+                    <td mat-cell *matCellDef="let element"> {{element.price}}.00 </td>
                 </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedFoodColumnsList;"></tr>
-                <tr mat-row *matRowDef="let element; columns: displayedFoodColumnsList;"></tr>\
-            </table-->
+                <tr mat-header-row *matHeaderRowDef="displayedOrderColumnsList;"></tr>
+                <tr mat-row *matRowDef="let element; columns: displayedOrderColumnsList;"></tr>
+            </table>
         </mat-card-content>
     </mat-card>
-</div>
+<!--/div-->

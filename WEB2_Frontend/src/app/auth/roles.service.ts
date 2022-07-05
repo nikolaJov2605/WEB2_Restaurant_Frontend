@@ -15,7 +15,7 @@ export class RolesService implements CanActivate
         console.log(tokenPayload);
         if (!this.auth.isAuthenticated() || tokenPayload.role !== expectedRole) {
             console.log(tokenPayload.role);
-            this.router.navigate(['login']);
+            this.router.navigate(['user/login']);
               return false;
         }
         return true;

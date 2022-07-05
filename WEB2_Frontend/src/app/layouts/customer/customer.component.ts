@@ -16,6 +16,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./customer.component.scss']
 })
 export class CustomerComponent implements OnInit {
+
+
   ngOnInit(): void {
   }
 

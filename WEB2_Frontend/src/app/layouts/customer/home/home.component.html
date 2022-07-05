@@ -14,29 +14,29 @@
                 <section class="example-section">
                     <table mat-table [dataSource]="dataFoodList">
                         <ng-container matColumnDef="number">
-                            <th mat-header-cell *matHeaderCellDef> No. </th>
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> No. </th>
                             <td mat-cell *matCellDef="let element"> {{element.number}} </td>
                           </ng-container>
                         <ng-container matColumnDef="name">
-                          <th mat-header-cell *matHeaderCellDef> Naziv </th>
+                          <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Naziv </th>
                           <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                         </ng-container>
                     
                         <ng-container matColumnDef="ingredients">
-                          <th mat-header-cell *matHeaderCellDef> Dodaci </th>
+                          <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Dodaci </th>
                           <td mat-cell *matCellDef="let element"> {{element.ingredients}} </td>
                         </ng-container>
                     
                         <ng-container matColumnDef="amount">
-                          <th mat-header-cell *matHeaderCellDef> Količina </th>
+                          <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Količina </th>
                           <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
                         </ng-container>
                         <ng-container matColumnDef="price">
-                            <th mat-header-cell *matHeaderCellDef> Cena </th>
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Cena </th>
                             <td mat-cell *matCellDef="let element"> {{element.price}} </td>
                           </ng-container>
                         <ng-container matColumnDef="button">
-                            <th mat-header-cell *matHeaderCellDef></th>
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center;"></th>
                             <td mat-cell *matCellDef="let element"> <button mat-raised-button color="warn" (click)="deleteRow(element)">Obriši</button></td>
                           </ng-container>
                     
