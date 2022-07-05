@@ -1,7 +1,6 @@
-<!--div class="container"-->
 <mat-card class="box place">
     <mat-card-header>
-        <mat-card-title align="center">Moje narudžbine</mat-card-title>
+        <mat-card-title align="center">Trenutne narudžbine</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
@@ -12,8 +11,7 @@
             </ng-container>
             <ng-container matColumnDef="food">
                 <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Vreme kreiranja narudžbine </th>
-                <td mat-cell *matCellDef="let element" style="text-align: left; padding-left: 40px;"> {{element.food}}
-                </td>
+                <td mat-cell *matCellDef="let element" style="text-align: left; padding-left: 40px;"> {{element.food}} </td>
             </ng-container>
             <ng-container matColumnDef="timePosted">
                 <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Vreme kreiranja narudžbine </th>
@@ -35,5 +33,3 @@
         </table>
     </mat-card-content>
 </mat-card>
-
-<!--/div-->

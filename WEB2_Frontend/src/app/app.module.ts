@@ -23,6 +23,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { RolesService } from './auth/roles.service';
+import { CommonModule } from '@angular/common';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -38,6 +39,7 @@ export function tokenGetter() {
     CustomerComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,

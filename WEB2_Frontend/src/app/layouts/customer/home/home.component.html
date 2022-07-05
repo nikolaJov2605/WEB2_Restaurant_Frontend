@@ -76,7 +76,7 @@
                             <mat-label *ngIf="food.unitOfMeasure == 'piece'">Količina: {{food.quantity}} kom</mat-label><br>
                             <mat-label>Cena: {{food.price}} din</mat-label><br>
                             <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
-                                <input matInput type="number" id="{{food.id}}" placeholder="Količina" min="1" max="50" aria-required="true">
+                                <input matInput type="number" id="{{food.id}}" placeholder="Broj porcija" min="1" max="50" aria-required="true">
                             </mat-form-field>
                             <mat-accordion>
                                 <mat-expansion-panel hideToggle class="ingredient-list">

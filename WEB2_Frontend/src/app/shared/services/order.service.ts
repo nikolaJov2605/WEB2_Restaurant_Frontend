@@ -21,6 +21,10 @@ export class OrderService{
         return this.http.get<OrderModel[]>(environment.serverURL + `/api/orders/${email}`);
     }
 
+    getUndeliveredOrders(email: string) : Observable<OrderModel[]>{
+        return this.http.get<OrderModel[]>(environment.serverURL + `/api/orders/current-orders/${email}`);
+
+    }
     /*getNewOrders() : Observable<Order[]>{
         return this.http.get<Order[]>(environment.serverURL + '/api/orders/newOrders');
 

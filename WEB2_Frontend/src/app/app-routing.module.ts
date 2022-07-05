@@ -1,3 +1,4 @@
+import { CurrentOrdersComponent } from './layouts/customer/current-orders/current-orders.component';
 import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
@@ -24,7 +25,8 @@ const routes: Routes = [
     children: [
         { path: '', redirectTo:'home', pathMatch:'full' },
         { path: 'home', component: HomeComponent, },
-        { path: 'orders', component: OrdersComponent, },
+        { path: 'orders', component: OrdersComponent },
+        { path: 'current-orders', component: CurrentOrdersComponent }
     ]
   }
 ];

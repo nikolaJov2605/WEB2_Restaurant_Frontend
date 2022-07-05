@@ -1,17 +1,16 @@
-import { FoodGetterModel } from './../../../shared/models/foodGetter.model';
-import { OrderService } from './../../../shared/services/order.service';
 import { Component, OnInit } from '@angular/core';
-import { OrderModel } from 'src/app/shared/models/order.model';
 import { MatTableDataSource } from '@angular/material/table';
-import { OrderTableModel } from 'src/app/shared/models/orderTable.model';
 import { FoodModel } from 'src/app/shared/models/food.model';
+import { OrderModel } from 'src/app/shared/models/order.model';
+import { OrderTableModel } from 'src/app/shared/models/orderTable.model';
+import { OrderService } from 'src/app/shared/services/order.service';
 
 @Component({
-  selector: 'app-orders',
-  templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss']
+  selector: 'app-current-orders',
+  templateUrl: './current-orders.component.html',
+  styleUrls: ['./current-orders.component.scss']
 })
-export class OrdersComponent implements OnInit {
+export class CurrentOrdersComponent implements OnInit {
 
   allOrders: OrderModel[] = [];
   orderTableModel: OrderTableModel = new OrderTableModel;
@@ -23,14 +22,13 @@ export class OrdersComponent implements OnInit {
   foodArray: FoodModel[] = [];
   foodModel: FoodModel = new FoodModel;
 
-
   constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
     let email = localStorage.getItem('email');
-    if(email != null){
-      this.orderService.getAllMyOrders(email).subscribe(
-        (data : OrderModel[]) => {
+    if (email != null) {
+      this.orderService.getUndeliveredOrders(email).subscribe(
+        (data: OrderModel[]) => {
           this.allOrders = data;
           console.log("narudzbine:");
           console.log(data);
@@ -42,10 +40,10 @@ export class OrdersComponent implements OnInit {
         }
       );
     }
-    
   }
 
-  loadTable(): void{
+
+  loadTable(): void {
     this.allOrders.forEach(element => {
       let tD = "";
       if(element.timeDelivered != null)
@@ -57,7 +55,7 @@ export class OrdersComponent implements OnInit {
       element.orderedFood.forEach(foodElement => {
         let ingredients = "";
         foodElement.ingredients.forEach(ingredientElement => {
-          if(ingredients == "")
+          if (ingredients == "")
             ingredients = ingredientElement.name;
           else
             ingredients += (", " + ingredientElement.name);
@@ -71,30 +69,25 @@ export class OrdersComponent implements OnInit {
 
 
 
-
-      if(element.delivered == true){
-        this.orderTable.push({id: element.id, food: food, timeDelivered: tD, timePosted: tP, price: element.price})
+        this.orderTable.push({ id: element.id, food: food, timeDelivered: tD, timePosted: tP, price: element.price })
         this.orderDataSource.data = this.orderTable;
         console.log(this.orderTable);
-      }
     });
   }
 }
 
-
-
 function parseDateToString(date: string) {
-    let yearDelivered = date.substring(0, 4);
-    let monthDelivered = date.substring(5, 7);
-    if (monthDelivered.startsWith('0'))
-      monthDelivered = monthDelivered.substring(1);
+  let yearDelivered = date.substring(0, 4);
+  let monthDelivered = date.substring(5, 7);
+  if (monthDelivered.startsWith('0'))
+    monthDelivered = monthDelivered.substring(1);
 
-    let dayDelivered = date.substring(8, 10);
-    if (dayDelivered.startsWith('0'))
-      dayDelivered = dayDelivered.substring(1);
-    let hourDelivered = date.substring(11, 13);
-    let minuteDelivered = date.substring(14, 16);
-    var stringBuilder = dayDelivered + "." + monthDelivered + "." + yearDelivered + ", " + hourDelivered + ":" + minuteDelivered + "h";
+  let dayDelivered = date.substring(8, 10);
+  if (dayDelivered.startsWith('0'))
+    dayDelivered = dayDelivered.substring(1);
+  let hourDelivered = date.substring(11, 13);
+  let minuteDelivered = date.substring(14, 16);
+  var stringBuilder = dayDelivered + "." + monthDelivered + "." + yearDelivered + ", " + hourDelivered + ":" + minuteDelivered + "h";
 
-    return stringBuilder;
+  return stringBuilder;
 }

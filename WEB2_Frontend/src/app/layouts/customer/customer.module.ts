@@ -1,3 +1,5 @@
+import { AppModule } from './../../app.module';
+import { CurrentOrdersComponent } from './current-orders/current-orders.component';
 import { RolesService } from './../../auth/roles.service';
 import { CustomerComponent } from './customer.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
@@ -20,6 +22,7 @@ import { BrowserModule } from '@angular/platform-browser';
   declarations: [
     OrdersComponent,
     HomeComponent,
+    CurrentOrdersComponent
   ],
   imports: [
     CommonModule,
