@@ -47,6 +47,9 @@ export class OrdersComponent implements OnInit {
 
   loadTable(): void{
     this.allOrders.forEach(element => {
+      let tA = "";
+      if(element.timeAccepted != null)
+        tA = parseDateToString(element.timeAccepted.toString());
       let tD = "";
       if(element.timeDelivered != null)
         tD = parseDateToString(element.timeDelivered.toString());
@@ -73,7 +76,7 @@ export class OrdersComponent implements OnInit {
 
 
       if(element.delivered == true){
-        this.orderTable.push({id: element.id, food: food, timeDelivered: tD, timePosted: tP, price: element.price})
+        this.orderTable.push({id: element.id, food: food, timeDelivered: tD, timePosted: tP, timeAccepted: tA, price: element.price})
         this.orderDataSource.data = this.orderTable;
         console.log(this.orderTable);
       }

@@ -1,3 +1,4 @@
+import { NavbarComponent } from './../../navbar/navbar.component';
 import { AppModule } from './../../app.module';
 import { CurrentOrdersComponent } from './current-orders/current-orders.component';
 import { RolesService } from './../../auth/roles.service';
@@ -31,7 +32,7 @@ import { BrowserModule } from '@angular/platform-browser';
     BrowserAnimationsModule,
     AngularMaterialModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   providers:[
     CookieService,

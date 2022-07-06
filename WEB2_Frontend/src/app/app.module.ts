@@ -1,3 +1,4 @@
+
 import { CustomerComponent } from './layouts/customer/customer.component';
 import { CustomerModule } from './layouts/customer/customer.module';
 import { NgModule } from '@angular/core';
@@ -16,7 +17,6 @@ import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { environment } from 'src/environments/environment';
 import { JwtModule } from '@auth0/angular-jwt';
 
@@ -24,6 +24,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { RolesService } from './auth/roles.service';
 import { CommonModule } from '@angular/common';
+import { NavbarComponent } from './navbar/navbar.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -57,6 +58,7 @@ export function tokenGetter() {
   ],
   providers: [
     //RolesService,
+    NavbarComponent,
     CookieService,
     {
        provide: HTTP_INTERCEPTORS,

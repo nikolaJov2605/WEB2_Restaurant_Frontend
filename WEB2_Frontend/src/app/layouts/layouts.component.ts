@@ -1,3 +1,5 @@
+import { NavbarComponent } from './../navbar/navbar.component';
+import { NavbarModel } from './../shared/models/navbar.model';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -9,11 +11,10 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class LayoutsComponent implements OnInit {
 
-  constructor(private jwtHelper: JwtHelperService, private router:Router) {}
-  
-    ngOnInit(): void {
-      
-      
-    }
+  private vavbarModel: NavbarModel = new NavbarModel;
+  constructor(private jwtHelper: JwtHelperService, private router: Router) { }
 
+  ngOnInit(): void {
+    
+  }
 }

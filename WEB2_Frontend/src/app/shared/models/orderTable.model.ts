@@ -2,6 +2,7 @@ export class OrderTableModel{
     id: number = 0;
     food: string = "";
     timePosted: string = "";
+    timeAccepted: string = "";
     timeDelivered: string = "";
     price: number = 0;
 }
