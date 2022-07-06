@@ -279,7 +279,7 @@ export class HomeComponent implements OnInit {
     this.orderService.createOrder(order).subscribe(
       (data : boolean) => {
         //window.location.reload();
-        this.router.navigate(["customer/orders"])
+        this.router.navigate(["layouts/customer/current-orders"])
         //this.router.navigateByUrl('home/customer');
         //alert(data);
       },

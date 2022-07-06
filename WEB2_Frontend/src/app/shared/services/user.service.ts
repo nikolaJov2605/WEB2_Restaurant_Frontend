@@ -16,10 +16,18 @@ export class UserService {
 
   register(registrationModel:RegistrationModel) :Observable<Object> {
     return this.http.post<Object>(environment.serverURL + '/api/users/register', registrationModel);
-  } // izmeni serverUrl na odgovarajuci
+  }
 
   login(loginModel: LoginModel) :Observable<TokenModel> {
     return this.http.post<TokenModel>(environment.serverURL + '/api/users/login', loginModel);
+  }
+
+  getUserByUsername(username: string) : Observable<RegistrationModel> {
+    return this.http.get<RegistrationModel>(environment.serverURL + `/api/users/${username}`);
+  }
+
+  updateUser(registrationModel:RegistrationModel) :Observable<Object> {
+    return this.http.post<Object>(environment.serverURL + '/api/users/update-user', registrationModel);
   }
 
 }

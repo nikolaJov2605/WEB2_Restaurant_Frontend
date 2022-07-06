@@ -1,3 +1,6 @@
+import { ProfileComponent } from './user/profile/profile.component';
+import { LayoutsModule } from './layouts/layouts.module';
+import { LayoutsComponent } from './layouts/layouts.component';
 
 import { CustomerComponent } from './layouts/customer/customer.component';
 import { CustomerModule } from './layouts/customer/customer.module';
@@ -24,7 +27,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { RolesService } from './auth/roles.service';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarComponent } from './layouts/navbar/navbar.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -36,8 +39,9 @@ export function tokenGetter() {
     UserComponent,
     LoginComponent,
     RegisterComponent,
-    NavbarComponent,
-    CustomerComponent
+    ProfileComponent
+    //LayoutsComponent,
+    //NavbarComponent
   ],
   imports: [
     CommonModule,
@@ -54,11 +58,12 @@ export function tokenGetter() {
         allowedDomains: environment.allowedDomains
       }
     }),
-    CustomerModule,
+    LayoutsModule,
+    CustomerModule
   ],
   providers: [
     //RolesService,
-    NavbarComponent,
+    //NavbarComponent,
     CookieService,
     {
        provide: HTTP_INTERCEPTORS,

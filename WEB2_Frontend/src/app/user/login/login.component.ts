@@ -51,13 +51,13 @@ export class LoginComponent implements OnInit {
         const decoded = this.jwtHelper.decodeToken(token);
         var role = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
         if(role =="admin"){
-            this.router.navigate(["admin"]);
+            this.router.navigate(["layouts/admin"]);
         }
         if(role =="customer"){
-          this.router.navigate(["customer"]);
+          this.router.navigate(["layouts/customer"]);
         }
         if(role =="deliverer"){
-          this.router.navigate(["deliverer"]);
+          this.router.navigate(["layouts/deliverer"]);
         }
       
       }

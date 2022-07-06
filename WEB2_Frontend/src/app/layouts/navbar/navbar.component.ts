@@ -1,4 +1,4 @@
-import { NavbarModel } from './../shared/models/navbar.model';
+import { NavbarModel } from '../../shared/models/navbar.model';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Component, OnInit } from '@angular/core';
@@ -31,7 +31,43 @@ export class NavbarComponent implements OnInit {
   }
 
   onNavBarClick(btn: string) {
-    if(btn == "Početna") {
+    switch (btn) {
+      case "Početna":
+        if (this.roleStr == "admin") {
+          //this.router.navigate('layouts/admin'); redirekcija na admin-homepage
+        }
+        else if (this.roleStr == "deliverer") {
+          //this.router.navigate('layouts/deliverer'); redirekcija na deliverer-homepage
+        }
+        else if (this.roleStr == "customer") {
+          this.router.navigate(['layouts/customer']);
+        }
+        break;
+      case "Moj profil":
+        if (this.roleStr == "admin") {
+          //this.router.navigate('admin'); redirekcija na profil admina
+        }
+        else if (this.roleStr == "deliverer") {
+          //this.router.navigate('deliverer'); redirekcija na profil dostavljaca
+        }
+        else if (this.roleStr == "customer") {
+          //this.router.navigate(['user/profile']);
+        }
+        break;
+      case "Odjava":
+        localStorage.clear();
+        this.router.navigate(['user/login']);
+        break;
+      case "Moje narudžbine":
+        this.router.navigate(['layouts/customer/orders']);
+        break;
+      case "Trenutne narudžbine":
+        this.router.navigate(['layouts/customer/current-orders']);
+        break;
+      default:
+        return;
+    }
+    /*if(btn == "Početna") {
       if(this.roleStr == "admin") {
         //this.router.navigate('admin'); redirekcija na admin-homepage
       }
@@ -41,7 +77,15 @@ export class NavbarComponent implements OnInit {
       else if(this.roleStr == "customer") {
         this.router.navigate(['customer']);
       }
-
+      if(this.roleStr == "admin") {
+        //this.router.navigate('admin'); redirekcija na profil admina
+      }
+      else if(this.roleStr == "deliverer") {
+        //this.router.navigate('deliverer'); redirekcija na profil dostavljaca
+      }
+      else if(this.roleStr == "customer") {
+        //this.router.navigate(['customer']); redirekcija na profil kupca
+      }
     }
     else if(btn == "Moj profil") {
       if(this.roleStr == "admin") {
@@ -58,7 +102,7 @@ export class NavbarComponent implements OnInit {
     else if(btn == "Odjava") {
       localStorage.clear();
       this.router.navigate(['user/login']);
-    }
+    }*/
   }
 
 

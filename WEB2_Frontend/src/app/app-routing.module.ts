@@ -1,3 +1,5 @@
+import { ProfileComponent } from './user/profile/profile.component';
+import { LayoutsComponent } from './layouts/layouts.component';
 import { CurrentOrdersComponent } from './layouts/customer/current-orders/current-orders.component';
 import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './user/login/login.component';
@@ -17,18 +19,24 @@ const routes: Routes = [
     path: 'user', component: UserComponent,
     children: [
       { path: 'register', component: RegisterComponent },
-      { path: 'login', component: LoginComponent }
+      { path: 'login', component: LoginComponent },
+      { path: 'profile/:username', component: ProfileComponent, }
     ]
   },
-  { 
-    path:'customer', component: CustomerComponent,
+  {
+    path:'layouts', component: LayoutsComponent,
     children: [
-        { path: '', redirectTo:'home', pathMatch:'full' },
-        { path: 'home', component: HomeComponent, },
-        { path: 'orders', component: OrdersComponent },
-        { path: 'current-orders', component: CurrentOrdersComponent }
+      {
+      path:'customer', component: CustomerComponent,
+        children: [
+          { path: '', redirectTo:'home', pathMatch:'full' },
+          { path: 'home', component: HomeComponent, },
+          { path: 'orders', component: OrdersComponent },
+          { path: 'current-orders', component: CurrentOrdersComponent }
+        ]
+      }
     ]
-  }
+  },
 ];
 
 @NgModule({

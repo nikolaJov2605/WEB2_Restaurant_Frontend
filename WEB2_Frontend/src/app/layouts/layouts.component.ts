@@ -1,4 +1,3 @@
-import { NavbarComponent } from './../navbar/navbar.component';
 import { NavbarModel } from './../shared/models/navbar.model';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
