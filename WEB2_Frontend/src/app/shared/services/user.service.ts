@@ -1,3 +1,4 @@
+import { UsernameModel } from './../models/username.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { RegistrationModel } from '../models/registration.model';
@@ -22,12 +23,16 @@ export class UserService {
     return this.http.post<TokenModel>(environment.serverURL + '/api/users/login', loginModel);
   }
 
-  getUserByUsername(username: string) : Observable<RegistrationModel> {
-    return this.http.get<RegistrationModel>(environment.serverURL + `/api/users/${username}`);
+  getUserByEmail(email: string) : Observable<RegistrationModel> {
+    return this.http.get<RegistrationModel>(environment.serverURL + `/api/users/${email}`);
   }
 
   updateUser(registrationModel:RegistrationModel) :Observable<Object> {
     return this.http.post<Object>(environment.serverURL + '/api/users/update-user', registrationModel);
+  }
+
+  getUsernameByEmail(email: string) : Observable<UsernameModel> {
+    return this.http.get<UsernameModel>(environment.serverURL + `/api/users/get-username/${email}`)
   }
 
 }

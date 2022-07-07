@@ -1,3 +1,5 @@
+import { AppComponent } from './../app.component';
+import { AppModule } from './../app.module';
 import { LayoutsComponent } from './layouts.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -38,7 +40,7 @@ import { BrowserModule } from '@angular/platform-browser';
         tokenGetter: tokenGetter,
         allowedDomains: environment.allowedDomains
       }
-    }),
+    })
   ],
   providers: [
     CookieService,
@@ -51,5 +53,8 @@ import { BrowserModule } from '@angular/platform-browser';
   schemas:[
     CUSTOM_ELEMENTS_SCHEMA
   ],
+  exports:[
+    NavbarComponent
+  ]
 })
 export class LayoutsModule { }

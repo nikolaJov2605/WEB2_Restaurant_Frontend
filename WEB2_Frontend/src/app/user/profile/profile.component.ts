@@ -1,3 +1,4 @@
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { RegistrationModel } from 'src/app/shared/models/registration.model';
 import { UserService } from 'src/app/shared/services/user.service';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
@@ -11,10 +12,11 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router, private jwtHelper: JwtHelperService) { }
 
   username: string = "";
   user: RegistrationModel = new RegistrationModel;
+  userType: string = "";
 
   updateProfileForm = new UntypedFormGroup({
     UserName: new UntypedFormControl('', Validators.required),
@@ -30,11 +32,13 @@ export class ProfileComponent implements OnInit {
 
 
   ngOnInit(): void {
-    const temp = this.route.snapshot.paramMap.get('username');
-    if(temp != null)
-      this.username = temp;
+    this.userType = this.updateProfileForm.controls['UserType'].value;
+    const e = localStorage.getItem("email");
+    let email = "";
+    if(e != null)
+      email = e;
 
-    this.userService.getUserByUsername(this.username).subscribe(
+    this.userService.getUserByEmail(email).subscribe(
       data=>{
         console.log("Evo podaci bajo:");
         console.log(data);
@@ -51,6 +55,8 @@ export class ProfileComponent implements OnInit {
       },
       error=>{
         console.log("error");
+        console.log(this.userType);
+        this.checkClaim();
       }
     )
   }
@@ -84,6 +90,28 @@ export class ProfileComponent implements OnInit {
         alert('Error.')
       }
     );
+  }
+
+  checkClaim(){
+    const token = localStorage.getItem("token");
+      if (token && !this.jwtHelper.isTokenExpired(token)){
+        const decoded = this.jwtHelper.decodeToken(token);
+        var role = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+        if(role =="admin"){
+            this.router.navigate(["layouts/admin"]);
+        }
+        if(role =="customer"){
+          this.router.navigate(["layouts/customer"]);
+        }
+        if(role =="deliverer"){
+          this.router.navigate(["layouts/deliverer"]);
+        }
+      
+      }
+      else{
+        localStorage.removeItem('token');
+        this.router.navigate(['user/login']);
+      }
   }
 
 }

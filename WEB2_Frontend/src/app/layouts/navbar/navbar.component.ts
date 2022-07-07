@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/shared/services/user.service';
 import { NavbarModel } from '../../shared/models/navbar.model';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -10,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private jwtHelper: JwtHelperService, private router: Router) { }
+  constructor(private jwtHelper: JwtHelperService, private router: Router, private userService: UserService) { }
 
   public authorised: boolean = false;
 
@@ -19,6 +20,7 @@ export class NavbarComponent implements OnInit {
   public navigationList: string[] = [];
 
   public roleStr: string = "";
+  private username: string = "";
 
   ngOnInit(): void {
     this.checkClaim();
@@ -44,6 +46,21 @@ export class NavbarComponent implements OnInit {
         }
         break;
       case "Moj profil":
+        this.router.navigate(["user/profile/"]);
+        /*const e = localStorage.getItem("email");
+        let email = "";
+        if(e != null)
+        email = e;
+        this.userService.getUsernameByEmail(email).subscribe(
+          data=>{
+            this.username = data.username;
+            this.router.navigate(["user/profile/" + this.username]);
+          },
+          error=>{
+            console.log(error);
+            //alert("Error ocured");
+          }
+        )
         if (this.roleStr == "admin") {
           //this.router.navigate('admin'); redirekcija na profil admina
         }
@@ -52,7 +69,7 @@ export class NavbarComponent implements OnInit {
         }
         else if (this.roleStr == "customer") {
           //this.router.navigate(['user/profile']);
-        }
+        }*/
         break;
       case "Odjava":
         localStorage.clear();
