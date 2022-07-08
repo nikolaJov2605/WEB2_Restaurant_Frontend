@@ -36,8 +36,20 @@ export class OrderService{
         return this.http.post<OrderModel>(environment.serverURL + '/api/orders/take-order', orderTakeModel);
     }
 
-    finishDelivery(orderTakeModel: OrderTableModel) : Observable<Object>{
-        return this.http.post<Object>(environment.serverURL + '/api/orders/finish-delivery', orderTakeModel);
+    finishDelivery(orderModel: OrderModel) : Observable<Object>{
+        return this.http.post<Object>(environment.serverURL + '/api/orders/finish-delivery', orderModel);
+    }
+
+    getTakenOrder(email: string) : Observable<OrderModel>{
+        return this.http.get<OrderModel>(environment.serverURL + `/api/orders/taken-order/${email}`);
+    }
+
+    getSecondsUntilDelivery(deliveryId: number) : Observable<number>{
+        return this.http.get<number>(environment.serverURL + `/api/orders/time-remaining/${deliveryId}`);
+    }
+
+    getMyDeliveries(email: string) : Observable<OrderModel[]>{
+        return this.http.get<OrderModel[]>(environment.serverURL + `/api/orders/my-deliveries/${email}`);
     }
     /*getNewOrders() : Observable<Order[]>{
         return this.http.get<Order[]>(environment.serverURL + '/api/orders/newOrders');

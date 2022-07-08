@@ -1,18 +1,17 @@
 <mat-card class="box place">
     <mat-card-header>
-        <mat-card-title align="center">Narudžbine dostupne za isporuku</mat-card-title>
+        <mat-card-title align="center">Završene isporuke</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
-        <table mat-table [dataSource]="availableOrderDataSource" class="table">
+        <table mat-table [dataSource]="deliveredOrdersDataSource" class="table">
             <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef style="text-align: center; width: 6%;"> ID </th>
                 <td mat-cell *matCellDef="let element"> {{element.id}} </td>
             </ng-container>
             <ng-container matColumnDef="food">
                 <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Narudžbina </th>
-                <td mat-cell *matCellDef="let element" style="text-align: left; padding-left: 40px;"> {{element.food}}
-                </td>
+                <td mat-cell *matCellDef="let element" style="text-align: left; padding-left: 40px;"> {{element.food}} </td>
             </ng-container>
             <ng-container matColumnDef="timePosted">
                 <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Vreme kreiranja narudžbine </th>

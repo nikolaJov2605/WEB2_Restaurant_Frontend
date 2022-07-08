@@ -1,0 +1,62 @@
+.container{
+    //margin: auto;
+   // margin-top: 45px;
+    max-width: 100vw;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+   // vertical-align: center;
+}
+
+
+.grid{
+    //padding: 0%;
+    min-height: auto;
+    width: 100%;
+    height: auto;
+}
+
+mat-grid-tile{
+    min-height: 40%;
+}
+
+.box{
+    margin: auto;
+    width: 45%;
+    height: auto;
+    vertical-align: center;
+    font-family: Comic Sans MS, Comic Sans, cursive;
+}
+
+.place {
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+}
+
+table{
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+    font-family: Comic Sans MS, Comic Sans, cursive;
+    border-collapse: separate;
+    border-spacing: 0 2em;
+}
+
+th{
+    width: 50%;
+    text-align: right;
+    padding-right: 20px;
+}
+td {
+    width: 50%;
+    padding-left: 20px;
+    text-align: left;
+    white-space:pre;
+}
+
+h4{
+    text-align: center;
+}

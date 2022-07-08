@@ -1,5 +1,5 @@
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, enableProdMode } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { FoodModel } from 'src/app/shared/models/food.model';
 import { OrderModel } from 'src/app/shared/models/order.model';
@@ -42,6 +42,8 @@ export class CurrentOrdersComponent implements OnInit {
   public timeLeftMinutes: number = 0;
   public timeLeftSeconds: number = 0;
 
+  seconds: number = 0;
+
   constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
@@ -74,56 +76,29 @@ export class CurrentOrdersComponent implements OnInit {
       let tP = parseDateToString(element.timePosted.toString());
       if(element.accepted == true && element.delivered == false)
       {
-        var array = new Array;
-        var arrayDate = new Array;
-        var arrayTime = new Array;
-        array = tD.split(', ');
-        console.log("tD:" + tD);
-        arrayDate = array[0].split('.');
-        arrayTime = array[1].substring(0, array[1].length - 1).split(':');
+        this.orderService.getSecondsUntilDelivery(element.id).subscribe(
+          data=>{
+            this.seconds = data;
+            console.log("sekunde: " + this.seconds);
 
-        this.timeDeliveredDays = parseInt(arrayDate[0]);
-        this.timeDeliveredMonths = parseInt(arrayDate[1]);
-        this.timeDeliveredYears = parseInt(arrayDate[2]);
-        this.timeDeliveredHours = parseInt(arrayTime[0]);
-        this.timeDeliveredMinutes = parseInt(arrayTime[1]);
-        this.timeDeliveredSeconds = 0;
-        var dateDelivered = new Date(this.timeDeliveredYears, this.timeDeliveredMonths, this.timeDeliveredDays, this.timeDeliveredHours, this.timeDeliveredMinutes, this.timeAcceptedSeconds);
-        
-        /*array = tA.split(', ');
-        console.log("tA:" + tA);
-        arrayDate = array[0].split('.');
-        arrayTime = array[1].substring(0, array[1].length - 1).split(':');
+            this.timeLeftMinutes = Math.trunc(this.seconds / 60);
+            let decimals = (this.seconds / 60) - this.timeLeftMinutes;
+            let carry = 0;
+            if(decimals != 0){
+              carry = 1 % decimals;
+            }
+            
+            this.timeLeftSeconds = Math.round(60 * carry);
+            this.timeLeftHours = Math.trunc(this.timeLeftMinutes / 60);
 
-        this.timeAcceptedDays = parseInt(arrayDate[0]);
-        this.timeAcceptedMonths = parseInt(arrayDate[1]);
-        this.timeAcceptedYears = parseInt(arrayDate[2]);
-        this.timeAcceptedHours = parseInt(arrayTime[0]);
-        this.timeAcceptedMinutes = parseInt(arrayTime[1]);
-        this.timeAcceptedSeconds = 0;
-        var dateAccepted = new Date(this.timeAcceptedYears, this.timeAcceptedMonths, this.timeAcceptedDays, this.timeAcceptedHours, this.timeAcceptedMinutes, this.timeAcceptedSeconds);
+            let timer = Timer.Instance(this, this.timeLeftHours, this.timeLeftMinutes, this.timeLeftSeconds);
+            
+          },
+          error=>{
+            console.log(error);
+          }
+        );
         
-        var dif = dateDelivered.getTime() - dateAccepted.getTime();
-        var seconds = dif / 1000;*/
-        
-        
-        var dateNow = new Date();
-
-        var dif = dateDelivered.getTime() - dateNow.getTime();
-        var seconds = dif / 1000;
-
-        
-        this.timeLeftMinutes = Math.trunc(seconds / 60);
-        let decimals = (seconds / 60) - this.timeLeftMinutes;
-        let carry = 0;
-        if(decimals != 0){
-          carry = 1 % decimals;
-        }
-        
-        this.timeLeftSeconds = Math.round(60 * carry);
-        this.timeLeftHours = Math.trunc(this.timeLeftMinutes / 60);
-
-        var timer = Timer.Instance(this, this.timeLeftHours, this.timeLeftMinutes, this.timeLeftSeconds);
       }
       let food = "";
       let cnt = 1;
@@ -145,10 +120,13 @@ export class CurrentOrdersComponent implements OnInit {
 
 
 
-        this.orderTable.push({ id: element.id, food: food, timeDelivered: tD, timePosted: tP, timeAccepted:tA, price: element.price })
+        this.orderTable.push({ id: element.id, food: food, timeDelivered: tD, timePosted: tP, timeAccepted:tA, price: element.price, address: element.address, comment: element.comment, delivered: element.delivered })
         this.orderDataSource.data = this.orderTable;
+        console.log("ordertable");
         console.log(this.orderTable);
     });
+    console.log("ordertable");
+    console.log(this.orderTable);
   }
 }
 

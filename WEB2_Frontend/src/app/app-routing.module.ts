@@ -1,3 +1,4 @@
+import { DeliveriesComponent } from './layouts/deliverer/deliveries/deliveries.component';
 import { CurrentDeliveryComponent } from './layouts/deliverer/current-delivery/current-delivery.component';
 import { HomeDelivererComponent } from './layouts/deliverer/home-deliverer/home-deliverer.component';
 import { ProfileComponent } from './user/profile/profile.component';
@@ -43,6 +44,7 @@ const routes: Routes = [
           children: [
             { path: '', redirectTo:'home', pathMatch:'full' },
             { path: 'home', component: HomeDelivererComponent },
+            { path: 'my-deliveries', component: DeliveriesComponent },
             { path: 'current-delivery', component: CurrentDeliveryComponent }
           ]
       }

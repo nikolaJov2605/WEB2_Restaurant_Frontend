@@ -40,7 +40,6 @@ export class NavbarComponent implements OnInit {
         }
         else if (this.roleStr == "deliverer") {
           this.router.navigate(['layouts/deliverer']);
-          //this.router.navigate('layouts/deliverer'); redirekcija na deliverer-homepage
         }
         else if (this.roleStr == "customer") {
           this.router.navigate(['layouts/customer']);
@@ -48,29 +47,6 @@ export class NavbarComponent implements OnInit {
         break;
       case "Moj profil":
         this.router.navigate(["user/profile/"]);
-        /*const e = localStorage.getItem("email");
-        let email = "";
-        if(e != null)
-        email = e;
-        this.userService.getUsernameByEmail(email).subscribe(
-          data=>{
-            this.username = data.username;
-            this.router.navigate(["user/profile/" + this.username]);
-          },
-          error=>{
-            console.log(error);
-            //alert("Error ocured");
-          }
-        )
-        if (this.roleStr == "admin") {
-          //this.router.navigate('admin'); redirekcija na profil admina
-        }
-        else if (this.roleStr == "deliverer") {
-          //this.router.navigate('deliverer'); redirekcija na profil dostavljaca
-        }
-        else if (this.roleStr == "customer") {
-          //this.router.navigate(['user/profile']);
-        }*/
         break;
       case "Odjava":
         localStorage.clear();
@@ -81,6 +57,12 @@ export class NavbarComponent implements OnInit {
         break;
       case "Trenutne narudžbine":
         this.router.navigate(['layouts/customer/current-orders']);
+        break;
+      case "Moje dostave":
+        this.router.navigate(['layouts/deliverer/my-deliveries']);
+        break;
+      case "Trenutna dostava":
+        this.router.navigate(['layouts/deliverer/current-delivery']);
         break;
       default:
         return;

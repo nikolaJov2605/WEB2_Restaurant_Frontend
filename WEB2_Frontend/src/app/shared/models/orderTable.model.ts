@@ -4,6 +4,9 @@ export class OrderTableModel{
     timePosted: string = "";
     timeAccepted: string = "";
     timeDelivered: string = "";
+    address: string = "";
+    comment: string = "";
+    delivered: boolean = false;
     price: number = 0;
 }
 
