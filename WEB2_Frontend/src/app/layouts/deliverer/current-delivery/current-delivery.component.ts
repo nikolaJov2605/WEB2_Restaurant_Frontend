@@ -56,8 +56,8 @@ export class CurrentDeliveryComponent implements OnInit {
       if(this.currentDelivery.timeDelivered != null)
         tD = parseDateToString(this.currentDelivery.timeDelivered.toString());
       let tP = parseDateToString(this.currentDelivery.timePosted.toString());
-      if(this.currentDelivery.accepted == true && this.currentDelivery.delivered == false)
-      {
+      //if(this.currentDelivery.accepted == true && this.currentDelivery.delivered == false)
+     // {
         this.orderService.getSecondsUntilDelivery(this.currentDelivery.id).subscribe(
           data=>{
             this.seconds = data;
@@ -87,7 +87,7 @@ export class CurrentDeliveryComponent implements OnInit {
         );
         
         
-      }
+     // }
       let food = "";
       let cnt = 1;
 
@@ -153,6 +153,10 @@ class Timer {
     return this._instance;
   }
   async doTimer() {
+    if(this.hours == 0 && this.minutes == 0 && this.seconds == 0){
+      this.orders.delivered = true;
+      return;
+    }
     while(this.hours != 0 || this.minutes != 0 || this.seconds != 0)
     {
       await delay(1000);
@@ -172,7 +176,8 @@ class Timer {
       this.orders.timeLeftSeconds = this.seconds;
     }
     
-    this.orders.orderService.finishDelivery(this.orders.currentDelivery).subscribe(
+    this.orders.delivered = true;
+    /*this.orders.orderService.finishDelivery(this.orders.currentDelivery).subscribe(
       data=>{
         console.log("done");
         this.orders.delivered = true;
@@ -180,7 +185,7 @@ class Timer {
       error=>{
         console.log(error);
       }
-    );
+    );*/
 
   }
 }

@@ -74,7 +74,6 @@ export class DeliveriesComponent implements OnInit {
       element.orderedFood.forEach(foodElement => {
         let ingredients = "";
         foodElement.ingredients.forEach(ingredientElement => {
-          alert(ingredientElement.name);
           if(ingredients == "")
             ingredients = ingredientElement.name;
           else
@@ -114,7 +113,7 @@ export class DeliveriesComponent implements OnInit {
         this.router.navigate(['layouts/deliverer/current-delivery'])
       },
       error=>{
-        alert("Error ocured!");
+        alert("Došlo je do greške, molimo pokušajte ponovo kasnije!");
         console.log(error);
       }
     );

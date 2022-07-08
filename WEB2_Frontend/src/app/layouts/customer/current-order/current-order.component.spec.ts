@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CurrentOrdersComponent } from './current-orders.component';
+import { CurrentOrderComponent } from './current-order.component';
 
 describe('CurrentOrdersComponent', () => {
-  let component: CurrentOrdersComponent;
-  let fixture: ComponentFixture<CurrentOrdersComponent>;
+  let component: CurrentOrderComponent;
+  let fixture: ComponentFixture<CurrentOrderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CurrentOrdersComponent ]
+      declarations: [ CurrentOrderComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CurrentOrdersComponent);
+    fixture = TestBed.createComponent(CurrentOrderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

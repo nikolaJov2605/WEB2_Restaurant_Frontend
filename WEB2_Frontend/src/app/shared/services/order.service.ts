@@ -19,12 +19,16 @@ export class OrderService{
         return this.http.post<boolean>(environment.serverURL + '/api/orders/create-order', order);
     }
 
+    getAllOrders() : Observable<OrderModel[]>{
+        return this.http.get<OrderModel[]>(environment.serverURL + '/api/orders');
+    }
+
     getAllMyOrders(email: string) : Observable<OrderModel[]>{
         return this.http.get<OrderModel[]>(environment.serverURL + `/api/orders/${email}`);
     }
 
-    getUndeliveredOrders(email: string) : Observable<OrderModel[]>{
-        return this.http.get<OrderModel[]>(environment.serverURL + `/api/orders/current-orders/${email}`);
+    getUndeliveredOrder(email: string) : Observable<OrderModel>{
+        return this.http.get<OrderModel>(environment.serverURL + `/api/orders/current-orders/${email}`);
 
     }
 

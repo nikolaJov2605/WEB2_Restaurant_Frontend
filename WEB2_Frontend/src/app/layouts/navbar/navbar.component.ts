@@ -55,8 +55,8 @@ export class NavbarComponent implements OnInit {
       case "Moje narudžbine":
         this.router.navigate(['layouts/customer/orders']);
         break;
-      case "Trenutne narudžbine":
-        this.router.navigate(['layouts/customer/current-orders']);
+      case "Trenutna narudžbina":
+        this.router.navigate(['layouts/customer/current-order']);
         break;
       case "Moje dostave":
         this.router.navigate(['layouts/deliverer/my-deliveries']);

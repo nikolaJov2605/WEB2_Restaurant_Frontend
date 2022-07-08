@@ -1,18 +1,18 @@
 <div class="container">
     <!--br><br><br><br><br-->
-    <mat-grid-list cols="1" rowHeight="3:1" class="grid" *ngIf="currentDelivery.id == 0">
+    <mat-grid-list cols="1" rowHeight="3:1" class="grid" *ngIf="currentOrder.id == 0">
         <mat-grid-tile>
             <mat-card class="box place">
                 <mat-card-content>
-                    <h4> Trenutno niste angažovani ni na jednoj dostavi. <br><br><a href="layouts/deliverer/home"> Preuzmi posao! </a></h4>
+                    <h4> Trenutno ne postoji aktivna narudžbina.<br><br><a href="layouts/customer/home"> Poruči! </a></h4>
                 </mat-card-content>
             </mat-card>
         </mat-grid-tile>
     </mat-grid-list>
-    <mat-grid-list cols="1" rowHeight="3:1" class="grid" *ngIf="currentDelivery.id != 0">
+    <mat-grid-list cols="1" rowHeight="3:1" class="grid" *ngIf="currentOrder.id != 0">
         <mat-grid-tile>
             <mat-card class="box place">
-                <mat-card-content  >
+                <mat-card-content>
                     <table>
                         <tr>
                             <th>
@@ -33,7 +33,7 @@
                         </tr>
 
                         <tr>
-                            <th>
+                            <th style=>
                                 <mat-label>Vreme kreiranja<br> narudžbine: </mat-label>
                             </th>
 
@@ -42,42 +42,26 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>
+                            <th style=>
                                 <mat-label>Vreme preuzimanja<br> narudžbine: </mat-label>
                             </th>
 
                             <td>
-                                <mat-label> {{orderTableModel.timeAccepted}}</mat-label>
+                                <ng-container *ngIf="orderTableModel.timeAccepted == ''">
+                                    <mat-label style="color: gray;"> Narudžbina još uvek nije preuzeta za dostavu. </mat-label>
+                                </ng-container>
+                                <ng-container *ngIf="orderTableModel.timeAccepted != ''">
+                                    <mat-label> {{orderTableModel.timeAccepted}}</mat-label>
+                                </ng-container>
                             </td>
                         </tr>
-
-                        <tr>
-                            <th>
-                                <mat-label>Adresa: </mat-label>
-                            </th>
-
-                            <td>
-                                <mat-label> {{orderTableModel.address}}</mat-label>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th>
-                                <mat-label>Komentar: </mat-label>
-                            </th>
-
-                            <td>
-                                <mat-label> {{orderTableModel.comment}}</mat-label>
-                            </td>
-                        </tr>
-
                         <tr>
                             <th style=>
                                 <mat-label>Cena: </mat-label>
                             </th>
 
                             <td>
-                                <mat-label> {{currentDelivery.price}},00 rsd</mat-label>
+                                <mat-label> {{orderTableModel.price}},00 rsd</mat-label>
                             </td>
                         </tr>
 
@@ -91,7 +75,8 @@
                                     <mat-label style="color: green;"> Dostava je isporučena! </mat-label>
                                 </ng-container>
                                 <ng-container *ngIf="delivered == false">
-                                    <mat-label> {{timeLeftHours}}:{{timeLeftMinutes}}:{{timeLeftSeconds}} </mat-label>
+                                    <mat-label> {{timeLeftHours}}:{{timeLeftMinutes}}:{{timeLeftSeconds}}
+                                    </mat-label>
                                 </ng-container>
                                 <ng-container *ngIf="orderTableModel.timeAccepted == ''">
                                     <mat-label> --:--</mat-label>

@@ -3,7 +3,7 @@ import { CurrentDeliveryComponent } from './layouts/deliverer/current-delivery/c
 import { HomeDelivererComponent } from './layouts/deliverer/home-deliverer/home-deliverer.component';
 import { ProfileComponent } from './user/profile/profile.component';
 import { LayoutsComponent } from './layouts/layouts.component';
-import { CurrentOrdersComponent } from './layouts/customer/current-orders/current-orders.component';
+import { CurrentOrderComponent } from './layouts/customer/current-order/current-order.component';
 import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
@@ -36,7 +36,7 @@ const routes: Routes = [
           { path: '', redirectTo:'home', pathMatch:'full' },
           { path: 'home', component: HomeComponent, },
           { path: 'orders', component: OrdersComponent },
-          { path: 'current-orders', component: CurrentOrdersComponent }
+          { path: 'current-order', component: CurrentOrderComponent }
         ]
       },
       {
