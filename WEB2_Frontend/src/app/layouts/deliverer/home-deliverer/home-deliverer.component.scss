@@ -1,0 +1,43 @@
+.container{
+    margin: auto;
+    margin-top: 45px;
+    width: 30%;
+    height: 50%;
+    vertical-align: center;
+}
+
+.box{
+    margin: auto;
+    width: 85%;
+    height: 70%;
+    vertical-align: center;
+    font-family: Comic Sans MS, Comic Sans, cursive;
+}
+
+.place {
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+}
+
+.table{
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+    font-family: Comic Sans MS, Comic Sans, cursive;
+}
+
+th{
+    width: auto;
+    text-align: center;
+}
+td {
+    text-align: center;
+    white-space:pre;
+}
+
+.btn{
+    background-color: #01400b;
+}

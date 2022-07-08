@@ -59,6 +59,10 @@ table{
     font-family: Comic Sans MS, Comic Sans, cursive;
 }
 
+tr{
+    width: 100%;
+}
+
 th{
     width: auto;
     text-align: center;
@@ -66,4 +70,8 @@ th{
 td {
     text-align: center;
     white-space:pre;
+}
+
+.panel{
+    font-family: Comic Sans MS, Comic Sans, cursive;
 }

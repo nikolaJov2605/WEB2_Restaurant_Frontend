@@ -39,6 +39,7 @@ export class NavbarComponent implements OnInit {
           //this.router.navigate('layouts/admin'); redirekcija na admin-homepage
         }
         else if (this.roleStr == "deliverer") {
+          this.router.navigate(['layouts/deliverer']);
           //this.router.navigate('layouts/deliverer'); redirekcija na deliverer-homepage
         }
         else if (this.roleStr == "customer") {

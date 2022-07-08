@@ -1,3 +1,5 @@
+import { CurrentDeliveryComponent } from './layouts/deliverer/current-delivery/current-delivery.component';
+import { HomeDelivererComponent } from './layouts/deliverer/home-deliverer/home-deliverer.component';
 import { ProfileComponent } from './user/profile/profile.component';
 import { LayoutsComponent } from './layouts/layouts.component';
 import { CurrentOrdersComponent } from './layouts/customer/current-orders/current-orders.component';
@@ -11,6 +13,7 @@ import { RolesService } from './auth/roles.service';
 import { CustomerComponent } from './layouts/customer/customer.component';
 import { HomeComponent } from './layouts/customer/home/home.component';
 import { OrdersComponent } from './layouts/customer/orders/orders.component';
+import { DelivererComponent } from './layouts/deliverer/deliverer.component';
 
 const routes: Routes = [
   { path:'', redirectTo:'user/login', pathMatch:'full' },
@@ -34,6 +37,14 @@ const routes: Routes = [
           { path: 'orders', component: OrdersComponent },
           { path: 'current-orders', component: CurrentOrdersComponent }
         ]
+      },
+      {
+        path:'deliverer', component: DelivererComponent,
+          children: [
+            { path: '', redirectTo:'home', pathMatch:'full' },
+            { path: 'home', component: HomeDelivererComponent },
+            { path: 'current-delivery', component: CurrentDeliveryComponent }
+          ]
       }
     ]
   },

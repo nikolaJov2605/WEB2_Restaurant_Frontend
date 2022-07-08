@@ -1,3 +1,4 @@
+import { DelivererModule } from './layouts/deliverer/deliverer.module';
 import { ProfileComponent } from './user/profile/profile.component';
 import { LayoutsModule } from './layouts/layouts.module';
 import { LayoutsComponent } from './layouts/layouts.component';
@@ -59,7 +60,8 @@ export function tokenGetter() {
       }
     }),
     LayoutsModule,
-    CustomerModule
+    CustomerModule,
+    DelivererModule
   ],
   providers: [
     //RolesService,

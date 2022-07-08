@@ -1,3 +1,4 @@
+import { OrderTableModel } from './../models/orderTable.model';
 import { OrderModel } from './../models/order.model';
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
@@ -5,6 +6,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { query } from '@angular/animations';
+import { OrderTakeModel } from '../models/orderTake.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +26,18 @@ export class OrderService{
     getUndeliveredOrders(email: string) : Observable<OrderModel[]>{
         return this.http.get<OrderModel[]>(environment.serverURL + `/api/orders/current-orders/${email}`);
 
+    }
+
+    getAvailableOrders() : Observable<OrderModel[]>{
+        return this.http.get<OrderModel[]>(environment.serverURL + '/api/orders/available-orders')
+    }
+
+    takeOrder(orderTakeModel: OrderTakeModel) : Observable<OrderModel>{
+        return this.http.post<OrderModel>(environment.serverURL + '/api/orders/take-order', orderTakeModel);
+    }
+
+    finishDelivery(orderTakeModel: OrderTableModel) : Observable<Object>{
+        return this.http.post<Object>(environment.serverURL + '/api/orders/finish-delivery', orderTakeModel);
     }
     /*getNewOrders() : Observable<Order[]>{
         return this.http.get<Order[]>(environment.serverURL + '/api/orders/newOrders');

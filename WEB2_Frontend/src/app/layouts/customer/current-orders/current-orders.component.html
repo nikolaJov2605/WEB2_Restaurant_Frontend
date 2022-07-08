@@ -1,9 +1,19 @@
 <div class="container">
     <!--br><br><br><br><br-->
     <mat-grid-list cols="1" rowHeight="3:1" class="grid">
+        <!--mat-grid-tile>
+            <mat-card class="box place" *ngIf="orderTable.length == 0">
+                <mat-card-content>
+                    <h4> Trenutno ne postoje aktivne narudžbine.<br><br><a href="layouts/customer/home"> Dodaj novu! </a></h4>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile-->
         <ng-container *ngFor="let item of orderTable">
             <mat-grid-tile>
                 <mat-card class="box place">
+                    <mat-card-content *ngIf="orderTable.length == 0">
+                        <h4> Trenutno ne postoje aktivne narudžbine.<br><br><a href="layouts/customer/home"> Dodaj novu! </a></h4>
+                    </mat-card-content>
                     <!--mat-card-header>
                         <mat-card-title align="center">Narudžbina</mat-card-title>
                     </mat-card-header-->
@@ -47,7 +57,7 @@
                                         <mat-label> {{item.timeAccepted}}</mat-label>
                                     </ng-container>
                                     <ng-container *ngIf="item.timeAccepted == ''">
-                                        <mat-label> Narudžbina još uvek nije preuzeta za isporuku.</mat-label>
+                                        <mat-label style="color: gray;"><i> Narudžbina još uvek nije preuzeta za isporuku.</i></mat-label>
                                     </ng-container>
                                 </td>
                             </tr>
@@ -68,7 +78,7 @@
 
                                 <td>
                                     <ng-container *ngIf="item.timeAccepted != ''">
-                                        <!--mat-label> {{item.timeAccepted}}</mat-label-->
+                                        <mat-label> {{timeLeftHours}}:{{timeLeftMinutes}}:{{timeLeftSeconds}} </mat-label>
                                     </ng-container>
                                     <ng-container *ngIf="item.timeAccepted == ''">
                                         <mat-label> --:--</mat-label>

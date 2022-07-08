@@ -2,7 +2,7 @@
     <div class="grid-container place">
         <mat-accordion hideToggle>
             <mat-expansion-panel class="order" >
-                <mat-expansion-panel-header>
+                <mat-expansion-panel-header class="panel">
                     <mat-panel-title>Moja narudžbina</mat-panel-title>
                     <mat-panel-description *ngIf="foodTable.length == 0">
                         Vaša narudžbina je trenutno prazna.
@@ -44,19 +44,19 @@
                         <tr mat-row *matRowDef="let element; columns: displayedFoodColumnsList;"></tr>\
                       </table>
                 </section><br>
-                <mat-label> *Poštovani kupci, dostava se naknadno naplaćuje po fiksnoj ceni od {{deliveryFee}},00 rsd</mat-label><br><br>
-                <mat-label *ngIf="foodTable.length != 0">Ukupna cena sa dostavom: </mat-label><mat-label id="fullPrice" *ngIf="foodTable.length != 0">{{fullOrderPrice}},00 rsd</mat-label><br><br>
+                <mat-label class="panel"> *Poštovani kupci, dostava se naknadno naplaćuje po fiksnoj ceni od {{deliveryFee}},00 rsd</mat-label><br><br>
+                <mat-label class="panel" *ngIf="foodTable.length != 0">Ukupna cena sa dostavom: </mat-label><mat-label class="panel" id="fullPrice" *ngIf="foodTable.length != 0">{{fullOrderPrice}},00 rsd</mat-label><br><br>
                 
                 <form [formGroup]="orderForm">
                     <mat-card-content>
                       <table>
                         <tr>
-                          <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;" *ngIf="foodTable.length != 0">
-                            <input matInput placeholder="Adresa" class="form-control" formControlName="address">
+                          <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive; width: 50%;" *ngIf="foodTable.length != 0">
+                            <input matInput placeholder="Adresa" class="form-control order-form" formControlName="address">
                           </mat-form-field>
                         <tr>
-                          <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;" *ngIf="foodTable.length != 0">
-                            <input matInput placeholder="Komentar" class="form-control" formControlName="comment">
+                          <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive; width: 50%;" *ngIf="foodTable.length != 0">
+                            <input matInput placeholder="Komentar" class="form-control order-form" formControlName="comment" multiple="true">
                           </mat-form-field>
                         </tr>
                     </table>
