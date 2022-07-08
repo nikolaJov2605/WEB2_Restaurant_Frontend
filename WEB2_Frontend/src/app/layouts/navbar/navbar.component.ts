@@ -64,6 +64,9 @@ export class NavbarComponent implements OnInit {
       case "Trenutna dostava":
         this.router.navigate(['layouts/deliverer/current-delivery']);
         break;
+      case "Narudžbine":
+        this.router.navigate(['layouts/admin/orders']);
+        break;
       default:
         return;
     }

@@ -1,3 +1,5 @@
+import { AdminOrdersComponent } from './layouts/admin/admin-orders/admin-orders.component';
+import { AdminComponent } from './layouts/admin/admin.component';
 import { DeliveriesComponent } from './layouts/deliverer/deliveries/deliveries.component';
 import { CurrentDeliveryComponent } from './layouts/deliverer/current-delivery/current-delivery.component';
 import { HomeDelivererComponent } from './layouts/deliverer/home-deliverer/home-deliverer.component';
@@ -47,6 +49,13 @@ const routes: Routes = [
             { path: 'my-deliveries', component: DeliveriesComponent },
             { path: 'current-delivery', component: CurrentDeliveryComponent }
           ]
+      },
+      {
+        path: 'admin', component: AdminComponent,
+        children: [
+          { path: '', redirectTo: 'orders', pathMatch: 'full' },
+          { path: 'orders', component: AdminOrdersComponent },
+        ]
       }
     ]
   },

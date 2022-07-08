@@ -1,3 +1,4 @@
+import { AdminComponent } from './layouts/admin/admin.component';
 import { DelivererModule } from './layouts/deliverer/deliverer.module';
 import { ProfileComponent } from './user/profile/profile.component';
 import { LayoutsModule } from './layouts/layouts.module';
@@ -29,6 +30,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { RolesService } from './auth/roles.service';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
+import { AdminModule } from './layouts/admin/admin.module';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -61,7 +63,8 @@ export function tokenGetter() {
     }),
     LayoutsModule,
     CustomerModule,
-    DelivererModule
+    DelivererModule,
+    AdminModule
   ],
   providers: [
     //RolesService,

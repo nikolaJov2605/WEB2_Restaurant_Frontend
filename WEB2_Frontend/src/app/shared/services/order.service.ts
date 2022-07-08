@@ -20,7 +20,7 @@ export class OrderService{
     }
 
     getAllOrders() : Observable<OrderModel[]>{
-        return this.http.get<OrderModel[]>(environment.serverURL + '/api/orders');
+        return this.http.get<OrderModel[]>(environment.serverURL + '/api/orders/get-all');
     }
 
     getAllMyOrders(email: string) : Observable<OrderModel[]>{
