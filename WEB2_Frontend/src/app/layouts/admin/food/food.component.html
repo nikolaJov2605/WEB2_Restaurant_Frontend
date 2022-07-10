@@ -1,0 +1,71 @@
+<div class="content place grid-container">
+    <div class="grid-container">
+        <mat-accordion hideToggle>
+            <mat-expansion-panel class="order">
+                <mat-expansion-panel-header class="panel">
+                    <mat-panel-title>Hrana u ponudi</mat-panel-title>
+                    <div><button mat-raised-button color="primary" (click) = "openFoodDialog($event)">Dodaj stavku</button></div>
+                    <!--mat-panel-description>
+                    </mat-panel-description-->
+                </mat-expansion-panel-header>
+                <section class="example-section">
+                    <table mat-table [dataSource]="foodDataSource">
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> ID </th>
+                            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Naziv </th>
+                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="quantity">
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Količina </th>
+                            <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="unitOfMeasure">
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Jedinica mere </th>
+                            <td mat-cell *matCellDef="let element"> {{element.unitOfMeasure}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="price">
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Cena </th>
+                            <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedFoodColumnsList;"></tr>
+                        <tr mat-row *matRowDef="let element; columns: displayedFoodColumnsList;"></tr>\
+                    </table>
+                </section><br>
+            </mat-expansion-panel>
+        </mat-accordion>
+        <br><br><br>
+
+        <mat-accordion hideToggle>
+            <mat-expansion-panel class="order">
+                <mat-expansion-panel-header class="panel">
+                    <mat-panel-title>Dodaci u ponudi</mat-panel-title>
+                    <button mat-raised-button color="primary" (click) = "openIngredientDialog($event)">Dodaj stavku</button>
+                    <!--mat-panel-description>
+                    </mat-panel-description-->
+                </mat-expansion-panel-header>
+                <section class="example-section">
+                    <table mat-table [dataSource]="ingredientDataSource">
+                        <!--['id', 'name', 'quantity', 'unitOfMeasure', 'amount', 'price'];-->
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> ID </th>
+                            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Naziv </th>
+                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        </ng-container>
+                        
+                        <tr mat-header-row *matHeaderRowDef="displayedIngredientColumnList;"></tr>
+                        <tr mat-row *matRowDef="let element; columns: displayedIngredientColumnList;"></tr>\
+                    </table>
+                </section><br>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>
+
+<br><br>

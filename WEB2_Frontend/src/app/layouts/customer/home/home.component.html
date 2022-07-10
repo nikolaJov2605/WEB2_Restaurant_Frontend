@@ -4,12 +4,12 @@
             <mat-expansion-panel class="order" >
                 <mat-expansion-panel-header class="panel">
                     <mat-panel-title>Moja narudžbina</mat-panel-title>
-                    <mat-panel-description *ngIf="foodTable.length == 0">
+                    <div class="desc" style="color:darkgray;" *ngIf="foodTable.length == 0">
                         Vaša narudžbina je trenutno prazna.
-                    </mat-panel-description>
-                    <mat-panel-description *ngIf="foodTable.length != 0">
+                    </div>
+                    <div class="desc" style="color:gray;" *ngIf="foodTable.length != 0">
                         Broj artikala u narudžbini: {{foodTable.length}}.
-                    </mat-panel-description>
+                    </div>
                 </mat-expansion-panel-header>
                 <section class="example-section">
                     <table mat-table [dataSource]="dataFoodList">
@@ -63,15 +63,15 @@
                     </mat-card-content>
                   </form>
                 
-                <button mat-raised-button color="warn" (click) = "createOrder()" *ngIf="foodTable.length != 0">Poruči</button>
+                <button mat-raised-button color="warn" (click) = "createOrder()" *ngIf="foodTable.length != 0" class="btn-add-to-order">Poruči</button>
             </mat-expansion-panel>
         </mat-accordion>
         <mat-grid-list cols="3" rowHeight="1:1"  class="grid">
             <ng-container *ngFor="let food of allFood">
-                <mat-grid-tile>
-                    <mat-card>
-                        <mat-card-title class="title">{{food.name}}</mat-card-title>
-                        <mat-card-content class="content">
+                <mat-grid-tile class="tile">
+                    <mat-card class="card">
+                        <mat-card-title class="title" style="text-align: center;">{{food.name}}</mat-card-title>
+                        <mat-card-content class="content" style="margin-top: 10px;">
                             <mat-label *ngIf="food.unitOfMeasure == 'gram'">Količina: {{food.quantity}} grama</mat-label><br>
                             <mat-label *ngIf="food.unitOfMeasure == 'piece'">Količina: {{food.quantity}} kom</mat-label><br>
                             <mat-label>Cena: {{food.price}} din</mat-label><br>

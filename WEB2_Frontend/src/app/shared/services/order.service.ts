@@ -19,6 +19,10 @@ export class OrderService{
         return this.http.post<boolean>(environment.serverURL + '/api/orders/create-order', order);
     }
 
+    getDeliveryFee() : Observable<number>{
+        return this.http.get<number>(environment.serverURL + '/api/orders/delivery-fee')
+    }
+
     getAllOrders() : Observable<OrderModel[]>{
         return this.http.get<OrderModel[]>(environment.serverURL + '/api/orders/get-all');
     }

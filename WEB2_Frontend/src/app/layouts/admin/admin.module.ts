@@ -15,6 +15,9 @@ import { tokenGetter } from 'src/app/app.module';
 import { CookieService } from 'ngx-cookie-service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from 'src/app/auth/auth.interceptor';
+import { FoodComponent } from './food/food.component';
+import { FoodDialogComponent } from './food-dialog/food-dialog.component';
+import { IngredientDialogComponent } from './ingredient-dialog/ingredient-dialog.component';
 
 
 @NgModule({
@@ -22,6 +25,9 @@ import { AuthInterceptor } from 'src/app/auth/auth.interceptor';
     AdminComponent,
     AdminOrdersComponent,
     DeliverersComponent,
+    FoodComponent,
+    FoodDialogComponent,
+    IngredientDialogComponent,
   ],
   imports: [
     CommonModule,

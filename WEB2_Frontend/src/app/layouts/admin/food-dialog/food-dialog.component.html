@@ -1,0 +1,53 @@
+<div class="content">
+    <div class="grid-container place">
+        <form [formGroup]="newFoodForm">
+            <mat-card-content>
+                <mat-card-title> Novi artikal </mat-card-title>
+                <table>
+                    <tr>
+                        <th colspan="2">
+                            <mat-form-field class="example-full-width"
+                                style="font-family: Comic Sans MS, Comic Sans, cursive; width: 100%;">
+                                <input matInput placeholder="Naziv" class="form-control order-form"
+                                    formControlName="Name">
+                            </mat-form-field>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field  class="example-full-width"
+                                style="font-family: Comic Sans MS, Comic Sans, cursive; width: 100%;">
+                                <input matInput placeholder="Količina" class="form-control order-form"
+                                    formControlName="Quantity">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="example-full-width"
+                                style="font-family: Comic Sans MS, Comic Sans, cursive; width: 100%;">
+                                <mat-label  style=" height: 15px;">Jedinica mere:</mat-label>
+                                <select matNativeControl required class="form-control" formControlName="UnitOfMeasure">
+                                    <option value="customer">gram</option>
+                                    <option value="deliverer">komad</option>
+                                </select>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">
+                            <mat-form-field class="example-full-width"
+                                style="font-family: Comic Sans MS, Comic Sans, cursive; width: 100%;">
+                                <input matInput placeholder="Cena (rsd)" class="form-control order-form"
+                                    formControlName="Price">
+                            </mat-form-field>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">
+                            <button mat-stroked-button color="primary" type="submit" class="btn-block" (click)="onSubmit()">Dodaj stavku u meni</button>
+                        </th>
+                    </tr>
+                </table>
+            </mat-card-content>
+        </form>
+    </div>
+</div>

@@ -1,3 +1,4 @@
+import { FoodComponent } from './layouts/admin/food/food.component';
 import { AdminOrdersComponent } from './layouts/admin/admin-orders/admin-orders.component';
 import { AdminComponent } from './layouts/admin/admin.component';
 import { DeliveriesComponent } from './layouts/deliverer/deliveries/deliveries.component';
@@ -55,6 +56,7 @@ const routes: Routes = [
         path: 'admin', component: AdminComponent,
         children: [
           { path: '', redirectTo: 'deliverers', pathMatch: 'full' },
+          { path: 'food', component: FoodComponent },
           { path: 'orders', component: AdminOrdersComponent },
           { path: 'deliverers', component: DeliverersComponent },
         ]

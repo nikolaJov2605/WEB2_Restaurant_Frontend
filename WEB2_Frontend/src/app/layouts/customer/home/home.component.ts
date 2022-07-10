@@ -39,11 +39,20 @@ export class HomeComponent implements OnInit {
   ingredientCount: number = 0;
   ingredientsForFood: string = "";
   fullOrderPrice: number = 0;
-  deliveryFee: number = 150;
+  deliveryFee: number = 0;
 
   constructor(private foodService: FoodService, private orderService: OrderService, private router: Router) { }
 
   ngOnInit(): void {
+    this.orderService.getDeliveryFee().subscribe(
+      data=>{
+        console.log("delivery fee:" + data);
+        this.deliveryFee = data;
+      },
+      error=>{
+        console.log(error);
+      }
+    );
     this.dataFoodList.data = this.foodTable;
     this.foodService.retrieveAllFood().subscribe(
       (data : FoodModel[]) => {

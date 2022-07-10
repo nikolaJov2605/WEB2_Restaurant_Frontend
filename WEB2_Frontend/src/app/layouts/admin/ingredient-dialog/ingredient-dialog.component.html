@@ -1,0 +1,25 @@
+<div class="content">
+    <div class="grid-container place">
+        <form [formGroup]="newIngredientForm">
+            <mat-card-content>
+                <mat-card-title> Novi dodatak </mat-card-title>
+                <table>
+                    <tr>
+                        <th colspan="2">
+                            <mat-form-field class="example-full-width"
+                                style="font-family: Comic Sans MS, Comic Sans, cursive; width: 100%;">
+                                <input matInput placeholder="Naziv" class="form-control order-form"
+                                    formControlName="Name">
+                            </mat-form-field>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">
+                            <button mat-stroked-button color="primary" type="submit" class="btn-block" (click)="onSubmit()">Dodaj stavku u meni</button>
+                        </th>
+                    </tr>
+                </table>
+            </mat-card-content>
+        </form>
+    </div>
+</div>

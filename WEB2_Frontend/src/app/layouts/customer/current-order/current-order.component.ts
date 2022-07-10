@@ -154,10 +154,10 @@ class Timer {
   async doTimer() {
     while (this.seconds >= 0) {
       //console.log(this.seconds);
-      await delay(1000);
       this.order.timeWriter = this.order.secondsToHms(this.seconds);
       console.log(this.order.timeWriter);
       this.seconds = this.seconds - 1;
+      await delay(1000);
     }
 
     this.order.delivered = true;
