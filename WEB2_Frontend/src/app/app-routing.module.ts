@@ -16,6 +16,7 @@ import { RolesService } from './auth/roles.service';
 import { CustomerComponent } from './layouts/customer/customer.component';
 import { HomeComponent } from './layouts/customer/home/home.component';
 import { OrdersComponent } from './layouts/customer/orders/orders.component';
+import { DeliverersComponent } from './layouts/admin/deliverers/deliverers.component'
 import { DelivererComponent } from './layouts/deliverer/deliverer.component';
 
 const routes: Routes = [
@@ -53,8 +54,9 @@ const routes: Routes = [
       {
         path: 'admin', component: AdminComponent,
         children: [
-          { path: '', redirectTo: 'orders', pathMatch: 'full' },
+          { path: '', redirectTo: 'deliverers', pathMatch: 'full' },
           { path: 'orders', component: AdminOrdersComponent },
+          { path: 'deliverers', component: DeliverersComponent },
         ]
       }
     ]

@@ -36,7 +36,7 @@ export class NavbarComponent implements OnInit {
     switch (btn) {
       case "Početna":
         if (this.roleStr == "admin") {
-          //this.router.navigate('layouts/admin'); redirekcija na admin-homepage
+          this.router.navigate(['layouts/admin']);
         }
         else if (this.roleStr == "deliverer") {
           this.router.navigate(['layouts/deliverer']);
@@ -66,6 +66,9 @@ export class NavbarComponent implements OnInit {
         break;
       case "Narudžbine":
         this.router.navigate(['layouts/admin/orders']);
+        break;
+      case "Dostavljači":
+        this.router.navigate(['layouts/admin/deliverers'])
         break;
       default:
         return;

@@ -1,12 +1,10 @@
-export class RegistrationModel{
+export class DelivererTableModel{
     username: string = "";
-    password: string = "";
     name: string = "";
     lastname: string = "";
     email: string = "";
     address: string = "";
-    userType: string = "";
     verified: boolean = false;
-    birthDate: Date = new Date;
+    birthDate: string = "";
     denied: boolean = false;
 }

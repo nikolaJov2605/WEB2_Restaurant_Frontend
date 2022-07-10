@@ -1,3 +1,4 @@
+import { UserService } from './../../../shared/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -24,48 +25,41 @@ export class DeliveriesComponent implements OnInit {
 
   public takenOrder: OrderModel = new OrderModel;
 
-  constructor(private orderService: OrderService, private router: Router) { }
+
+  constructor(private orderService: OrderService, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     const e = localStorage.getItem("email");
     let email = "";
-    if(e != null)
+    if (e != null)
       email = e;
+
+
     this.orderService.getMyDeliveries(email).subscribe(
-      data=>{
+      data => {
         console.log("moje narudzbine");
         console.log("data");
         this.deliveredOrders = data;
         this.loadTable();
+
+
       },
-      error=>{
+      error => {
         console.log(error);
       }
     );
-    /*this.orderService.getAvailableOrders().subscribe(
-      (data : OrderModel[]) => {
-        console.log("narudzbine:");
-        console.log(data);
-        this.availableOrders = data;
-        this.loadTable();
-      },
-      error => {
-        alert('Došlo je do greške, molimo pokušajte kasnije.');
-        console.log(error);
-      }
-    );*/
 
   }
 
 
 
-  loadTable(): void{
+  loadTable(): void {
     this.deliveredOrders.forEach(element => {
       let tA = "";
-      if(element.timeAccepted != null)
+      if (element.timeAccepted != null)
         tA = parseDateToString(element.timeAccepted.toString());
       let tD = "";
-      if(element.timeDelivered != null)
+      if (element.timeDelivered != null)
         tD = parseDateToString(element.timeDelivered.toString());
       let tP = parseDateToString(element.timePosted.toString());
       let food = "";
@@ -74,12 +68,12 @@ export class DeliveriesComponent implements OnInit {
       element.orderedFood.forEach(foodElement => {
         let ingredients = "";
         foodElement.ingredients.forEach(ingredientElement => {
-          if(ingredients == "")
+          if (ingredients == "")
             ingredients = ingredientElement.name;
           else
             ingredients += (", " + ingredientElement.name);
         });
-        if(food == "")
+        if (food == "")
           food = cnt + ". " + foodElement.name + " (" + foodElement.quantity + foodElement.unitOfMeasure + ") x" + foodElement.amount + " \n\tDodaci: " + ingredients;
         else
           food += ("\n " + cnt + ". " + foodElement.name + " (" + foodElement.quantity + foodElement.unitOfMeasure + ") x" + foodElement.amount + " \n\tDodaci: " + ingredients);
@@ -90,29 +84,29 @@ export class DeliveriesComponent implements OnInit {
 
 
       //if(element.delivered == true){
-        this.deliveredOrdersTable.push({id: element.id, food: food, timePosted: tP, address: element.address, comment: element.comment, price: element.price})
-        this.deliveredOrdersDataSource.data = this.deliveredOrdersTable;
-        console.log("tabela:")
-        console.log(this.deliveredOrdersTable);
+      this.deliveredOrdersTable.push({ id: element.id, food: food, timePosted: tP, address: element.address, comment: element.comment, price: element.price })
+      this.deliveredOrdersDataSource.data = this.deliveredOrdersTable;
+      console.log("tabela:")
+      console.log(this.deliveredOrdersTable);
       //}
     });
   }
 
-  takeOrder(order: AvailableOrderModel){
+  takeOrder(order: AvailableOrderModel) {
     const e = localStorage.getItem('email');
     let email = "";
-    if(e != null)
+    if (e != null)
       email = e;
     this.orderTakeModel.delivererEmail = email;
     this.orderTakeModel.orderId = order.id;
-    
+
     this.orderService.takeOrder(this.orderTakeModel).subscribe(
-      (data: OrderModel)=>{
+      (data: OrderModel) => {
         console.log(data);
         this.takenOrder = data;
         this.router.navigate(['layouts/deliverer/current-delivery'])
       },
-      error=>{
+      error => {
         alert("Došlo je do greške, molimo pokušajte ponovo kasnije!");
         console.log(error);
       }

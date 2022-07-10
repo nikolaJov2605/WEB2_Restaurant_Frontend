@@ -16,7 +16,7 @@ export class ProfileComponent implements OnInit {
 
   username: string = "";
   user: RegistrationModel = new RegistrationModel;
-  userType: string = "";
+  public userType: string = "";
 
   updateProfileForm = new UntypedFormGroup({
     UserName: new UntypedFormControl('', Validators.required),
@@ -31,8 +31,11 @@ export class ProfileComponent implements OnInit {
   });
 
 
+  public verificationStatus: string = "";
+
+
   ngOnInit(): void {
-    this.userType = this.updateProfileForm.controls['UserType'].value;
+    //this.userType = this.updateProfileForm.controls['UserType'].value;
     const e = localStorage.getItem("email");
     let email = "";
     if(e != null)
@@ -40,9 +43,10 @@ export class ProfileComponent implements OnInit {
 
     this.userService.getUserByEmail(email).subscribe(
       data=>{
-        console.log("Evo podaci bajo:");
-        console.log(data);
+        //console.log("Evo podaci bajo:");
+        //console.log(data);
         this.user = data;
+        this.userType = data.userType;
         
         this.updateProfileForm.controls['Name'].setValue(this.user.name);
         this.updateProfileForm.controls['LastName'].setValue(this.user.lastname);
@@ -52,29 +56,45 @@ export class ProfileComponent implements OnInit {
         this.updateProfileForm.controls['Date'].setValue(this.user.birthDate);
         this.updateProfileForm.controls['UserType'].setValue(this.user.userType);
 
+        if(this.userType == 'deliverer'){
+          if(this.user.denied == true)
+          {
+            this.verificationStatus = "ODBIJEN";
+          }
+          if(this.user.verified == false && this.user.denied == false)
+          {
+            this.verificationStatus = "NA ČEKANjU";
+          }
+          if(this.user.verified == true)
+          {
+            this.verificationStatus = "VERIFIKOVAN";
+          }
+        }
+        
+
       },
       error=>{
         console.log("error");
-        console.log(this.userType);
+        //console.log(this.userType);
         this.checkClaim();
       }
     )
   }
 
   onSubmit(){
-    if(this.updateProfileForm.controls['Password'].value != this.updateProfileForm.controls['RepeatedPassword'].value)
+    /*if(this.updateProfileForm.controls['Password'].value != this.updateProfileForm.controls['RepeatedPassword'].value)
     {
       alert("Repeated password failed");
       console.log("Passwd:" + this.updateProfileForm.controls['Password'].value);
       console.log("Passwd2:" + this.updateProfileForm.controls['RepeatedPassword'].value);
       return;
-    }
+    }*/
     let regModel = new RegistrationModel();
     regModel.name = this.updateProfileForm.controls['Name'].value;
     regModel.lastname = this.updateProfileForm.controls['LastName'].value;
     regModel.email = this.updateProfileForm.controls['Email'].value;
     regModel.username = this.updateProfileForm.controls['UserName'].value;
-    regModel.password = this.updateProfileForm.controls['Password'].value;
+    //regModel.password = this.updateProfileForm.controls['Password'].value;
     regModel.address = this.updateProfileForm.controls['Address'].value;
     regModel.birthDate = this.updateProfileForm.controls['Date'].value;
     regModel.userType = this.updateProfileForm.controls['UserType'].value;

@@ -8,7 +8,7 @@
 
 .box{
     margin: auto;
-    width: 85%;
+    width: 90%;
     height: auto;
     vertical-align: center;
     font-family: Comic Sans MS, Comic Sans, cursive;
@@ -27,13 +27,13 @@
     width: 100%;
     max-height: 500px;
     //display: block;
-    //display: inline-block;
     text-align: center;
     font-family: Comic Sans MS, Comic Sans, cursive;
 }
-
-tr{
-    width: 100%;
+.wrapper{
+    display: block;
+    overflow-y: scroll;
+    height: 500px;
 }
 
 th{
@@ -45,13 +45,7 @@ td {
     white-space:pre;
 }
 
-.wrapper{
-    display: block;
-    overflow-y: scroll;
-    height: 500px;
-}
-
-mat-card-content{
-    height: auto;
-    width: 100%;
+.btnVer{
+    width: 130px;
+    margin: 10px;
 }

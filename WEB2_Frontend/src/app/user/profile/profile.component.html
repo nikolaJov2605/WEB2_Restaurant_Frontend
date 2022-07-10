@@ -22,19 +22,6 @@
             <tr>
                 <td>
                   <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
-                    <input matInput placeholder="Lozinka" type="password" class="form-control" formControlName="Password">
-                  </mat-form-field>
-                </td>
-                <td>
-                  <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
-                    <input matInput placeholder="Ponovite lozinku" type="password" class="form-control" formControlName="RepeatedPassword">
-                  </mat-form-field>
-                </td>
-                
-            </tr>
-            <tr>
-                <td>
-                  <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
                     <input matInput placeholder="Ime" class="form-control" formControlName="Name">
                   </mat-form-field>
                 </td>
@@ -77,6 +64,25 @@
                     <button style="width: 100%; font-family: Comic Sans MS, Comic Sans, cursive;" mat-stroked-button color="primary" type="submit" class="btn-block" (click)="onSubmit()">Sačuvaj izmene</button>
                 </th>
             </tr>
+            <tr *ngIf="userType == 'deliverer'"><td><br></td></tr>
+            <tr *ngIf="userType == 'deliverer'">
+              <td style="text-align: right; padding-right: 10px;">
+                <mat-label>Status verifikacije:</mat-label>
+              </td>
+              <td style="padding-left: 10px;">
+                <mat-label>
+                  <div class="text" style="color: green;" *ngIf="verificationStatus == 'VERIFIKOVAN'">
+                    {{verificationStatus}}
+                  </div>
+                  <div class="text" style="color: red;" *ngIf="verificationStatus == 'ODBIJEN'">
+                    {{verificationStatus}}
+                  </div>
+                  <div class="text" style="color: blue;" *ngIf="verificationStatus == 'NA ČEKANjU'">
+                    {{verificationStatus}}
+                  </div>
+                </mat-label>
+              </td>
+          </tr>
             
         </table>
         </mat-card-content>

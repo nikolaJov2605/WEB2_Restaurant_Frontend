@@ -1,3 +1,4 @@
+import { UserService } from './../../../shared/services/user.service';
 import { OrderTableModel } from './../../../shared/models/orderTable.model';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
@@ -25,16 +26,44 @@ export class HomeDelivererComponent implements OnInit {
   orderTakeModel: OrderTakeModel = new OrderTakeModel;
 
   public takenOrder: OrderModel = new OrderModel;
+  
+  public allowedPickup: boolean = false;
 
-  constructor(private orderService: OrderService, private router: Router) { }
+  constructor(private orderService: OrderService, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
+    const e = localStorage.getItem("email");
+    let email = "";
+    if (e != null)
+      email = e;
+  
+
+    this.userService.getUserByEmail(email).subscribe(
+      data => {
+        if (data.userType == "deliverer" && data.verified == true) {
+          this.allowedPickup = true;
+        }
+        else {
+          this.allowedPickup = false;
+        }
+      },
+      error => {
+        console.log("error");
+      }
+    )
+
+
+
+
+
+
     this.orderService.getAvailableOrders().subscribe(
       (data : OrderModel[]) => {
         console.log("narudzbine:");
         console.log(data);
         this.availableOrders = data;
         this.loadTable();
+        
       },
       error => {
         alert('Došlo je do greške, molimo pokušajte kasnije.');
@@ -90,17 +119,32 @@ export class HomeDelivererComponent implements OnInit {
     this.orderTakeModel.delivererEmail = email;
     this.orderTakeModel.orderId = order.id;
     
-    this.orderService.takeOrder(this.orderTakeModel).subscribe(
-      (data: OrderModel)=>{
-        console.log(data);
-        this.takenOrder = data;
-        this.router.navigate(['layouts/deliverer/current-delivery'])
+    this.userService.getUserByEmail(email).subscribe(
+      data => {
+        if (data.userType == "deliverer" && data.verified == true) {
+          this.allowedPickup = true;
+          this.orderService.takeOrder(this.orderTakeModel).subscribe(
+            (data: OrderModel)=>{
+              console.log(data);
+              this.takenOrder = data;
+              this.router.navigate(['layouts/deliverer/current-delivery'])
+            },
+            error=>{
+              alert("Error ocured!");
+              console.log(error);
+            }
+          );
+        }
+        else {
+          this.allowedPickup = false;
+          alert("Niste verifikovani i ne možete preuzeti dostavu. Za više informacija, obratite se nekom od administratora.")
+        }
       },
-      error=>{
-        alert("Error ocured!");
-        console.log(error);
+      error => {
+        console.log("error");
       }
-    );
+    )
+    
   }
 
 }

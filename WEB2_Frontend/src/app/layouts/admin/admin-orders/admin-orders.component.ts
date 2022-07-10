@@ -1,3 +1,4 @@
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { FoodModel } from 'src/app/shared/models/food.model';
@@ -17,10 +18,13 @@ export class AdminOrdersComponent implements OnInit {
   orderTable: OrderTableModel[] = [];
 
   orderDataSource = new MatTableDataSource();
-  displayedOrderColumnsList: string[] = ['id', 'food', 'timePosted', 'timeDelivered', 'price'];
+  displayedOrderColumnsList: string[] = ['id', 'food', 'customer', 'deliverer', 'timePosted', 'timeDelivered', 'price', 'status'];
 
-  foodArray: FoodModel[] = [];
-  foodModel: FoodModel = new FoodModel;
+  dateNow: Date = new Date;
+
+  public delivered: boolean = false;
+  public accepted: boolean = false;
+  public status: string = "";
 
 
   constructor(private orderService: OrderService) { }
@@ -41,7 +45,30 @@ export class AdminOrdersComponent implements OnInit {
   }
 
   loadTable(): void{
+    let nowFormated = this.dateNow.toISOString();
+    let dateNowParsed = Date.parse(nowFormated);
     this.allOrders.forEach(element => {
+      let dateDelivered = 0;
+      if(element.timeDelivered != null)
+      {
+        dateDelivered = Date.parse(element.timeDelivered.toString());
+        if(dateDelivered <= dateNowParsed)
+        {
+          this.delivered = true;
+          this.status = "DOSTAVLjENO";
+        }
+        else
+        {
+          this.accepted = true;
+          this.status = "PRIHVAĆENO";
+        }
+      }
+      else
+      {
+        this.delivered = false;
+        this.status = "NA ČEKANjU";
+      }
+      
       let tA = "";
       if(element.timeAccepted != null)
         tA = parseDateToString(element.timeAccepted.toString());
@@ -51,7 +78,9 @@ export class AdminOrdersComponent implements OnInit {
       let tP = parseDateToString(element.timePosted.toString());
       let food = "";
       let cnt = 1;
-
+      let uom = "";
+      
+      
       element.orderedFood.forEach(foodElement => {
         let ingredients = "";
         foodElement.ingredients.forEach(ingredientElement => {
@@ -59,22 +88,24 @@ export class AdminOrdersComponent implements OnInit {
             ingredients = ingredientElement.name;
           else
             ingredients += (", " + ingredientElement.name);
+          
+          if(foodElement.unitOfMeasure == "piece")
+            uom = "kom";
+          else
+            uom = "g";
         });
+        
         if(food == "")
-          food = cnt + ". " + foodElement.name + " (" + foodElement.quantity + foodElement.unitOfMeasure + ") x" + foodElement.amount + " \n\tDodaci: " + ingredients;
+          food = cnt + ". " + foodElement.name + " (" + foodElement.quantity + uom + ") x" + foodElement.amount + " \n\tDodaci: " + ingredients;
         else
           food += ("\n " + cnt + ". " + foodElement.name + " (" + foodElement.quantity + foodElement.unitOfMeasure + ") x" + foodElement.amount + " \n\tDodaci: " + ingredients);
         ++cnt;
       });
 
-
-
-
-      if(element.delivered == true){
-        this.orderTable.push({id: element.id, food: food, timeDelivered: tD, timePosted: tP, timeAccepted: tA, price: element.price, address: element.address, comment: element.comment, delivered: element.delivered})
-        this.orderDataSource.data = this.orderTable;
-        console.log(this.orderTable);
-      }
+      this.orderTable.push({id: element.id, food: food, timeDelivered: tD, timePosted: tP, timeAccepted: tA, price: element.price, address: element.address, comment: element.comment, delivered: element.delivered, customer: element.userEmail, deliverer: element.delivererEmail, status: this.status})
+      this.orderDataSource.data = this.orderTable;
+      console.log(this.orderTable);
+        
     });
   }
 }

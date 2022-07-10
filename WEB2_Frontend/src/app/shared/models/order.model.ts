@@ -10,6 +10,7 @@ export class OrderModel{
     timeAccepted: Date = new Date;
     timeDelivered: Date = new Date;
     delivered: boolean = false;
+    delivererEmail: string = "";
     price: number = 0;
     orderedFood: Array<FoodModel> = [];
 }

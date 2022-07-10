@@ -8,6 +8,9 @@ export class OrderTableModel{
     comment: string = "";
     delivered: boolean = false;
     price: number = 0;
+    deliverer: string = "";
+    customer: string = "";
+    status: string = "";
 }
 
 ///  this.orderTable.push({id: element.id, delivered: element.delivered, comment: element.comment, address: element.address, price: element.price})

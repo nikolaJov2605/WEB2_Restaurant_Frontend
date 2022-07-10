@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminComponent } from './admin.component';
 import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
@@ -8,12 +8,20 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from '../../angular-material.module';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { AppRoutingModule } from '../../app-routing.module';
+import { DeliverersComponent } from './deliverers/deliverers.component';
+import { environment } from 'src/environments/environment';
+import { JwtModule } from '@auth0/angular-jwt';
+import { tokenGetter } from 'src/app/app.module';
+import { CookieService } from 'ngx-cookie-service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from 'src/app/auth/auth.interceptor';
 
 
 @NgModule({
   declarations: [
     AdminComponent,
-    AdminOrdersComponent
+    AdminOrdersComponent,
+    DeliverersComponent,
   ],
   imports: [
     CommonModule,
@@ -21,7 +29,24 @@ import { AppRoutingModule } from '../../app-routing.module';
     AngularMaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: environment.allowedDomains
+      }
+    })
+  ],
+  providers: [
+    CookieService,
+    {
+       provide: HTTP_INTERCEPTORS,
+       useClass: AuthInterceptor,
+       multi: true,
+    }
+  ],
+  schemas:[
+    CUSTOM_ELEMENTS_SCHEMA
   ]
 })
 export class AdminModule { }

@@ -14,12 +14,14 @@ import { elementAt } from 'rxjs';
 export class CurrentDeliveryComponent implements OnInit {
 
   currentDelivery: OrderModel = new OrderModel;
-  
+
   orderTableModel: OrderTableModel = new OrderTableModel;
 
   public timeLeftHours: number = 0;
   public timeLeftMinutes: number = 0;
   public timeLeftSeconds: number = 0;
+
+  public timeWriter: string = "";
 
   seconds: number = 0;
 
@@ -31,16 +33,16 @@ export class CurrentDeliveryComponent implements OnInit {
 
     const e = localStorage.getItem("email");
     let email = "";
-    if(e != null)
+    if (e != null)
       email = e;
     this.orderService.getTakenOrder(email).subscribe(
-      data=>{
-        console.log("podacici:");
-        console.log(data);
+      data => {
+        //console.log("podacici:");
+        //console.log(data);
         this.currentDelivery = data;
         this.loadData();
       },
-      error=>{
+      error => {
         console.log(this.currentDelivery);
       }
     );
@@ -49,68 +51,73 @@ export class CurrentDeliveryComponent implements OnInit {
 
 
   loadData(): void {
-      let tA = "";
-      if(this.currentDelivery.timeAccepted != null)
-        tA = parseDateToString(this.currentDelivery.timeAccepted.toString());
-      let tD = "";
-      if(this.currentDelivery.timeDelivered != null)
-        tD = parseDateToString(this.currentDelivery.timeDelivered.toString());
-      let tP = parseDateToString(this.currentDelivery.timePosted.toString());
-      //if(this.currentDelivery.accepted == true && this.currentDelivery.delivered == false)
-     // {
-        this.orderService.getSecondsUntilDelivery(this.currentDelivery.id).subscribe(
-          data=>{
-            this.seconds = data;
-            if(this.seconds < 0)
-            {
-              return;
-            }
-            this.seconds = 70;
-            console.log("sekunde: " + this.seconds);
-
-            this.timeLeftMinutes = Math.trunc(this.seconds / 60);
-            let decimals = (this.seconds / 60) - this.timeLeftMinutes;
-            let carry = 0;
-            if(decimals != 0){
-              carry = 1 % decimals;
-            }
-            
-            this.timeLeftSeconds = Math.round(60 * carry);
-            this.timeLeftHours = Math.trunc(this.timeLeftMinutes / 60);
-
-            let timer = Timer.Instance(this, this.timeLeftHours, this.timeLeftMinutes, this.timeLeftSeconds);
-
-          },
-          error=>{
-            console.log(error);
+    let tA = "";
+    if (this.currentDelivery.timeAccepted != null)
+      tA = parseDateToString(this.currentDelivery.timeAccepted.toString());
+    let tD = "";
+    if (this.currentDelivery.timeDelivered != null)
+      tD = parseDateToString(this.currentDelivery.timeDelivered.toString());
+    let tP = parseDateToString(this.currentDelivery.timePosted.toString());
+    if (this.currentDelivery.accepted == true) {
+      this.orderService.getSecondsUntilDelivery(this.currentDelivery.id).subscribe(
+        data => {
+          this.seconds = data;
+          if (this.seconds < 0) {
+            return;
           }
-        );
-        
-        
-     // }
-      let food = "";
-      let cnt = 1;
 
-      this.currentDelivery.orderedFood.forEach(foodElement => {
-        let ingredients = "";
-        foodElement.ingredients.forEach(ingredientElement => {
-          if (ingredients == "")
-            ingredients = ingredientElement.name;
-          else
-            ingredients += (", " + ingredientElement.name);
-        });
-        if(food == "")
-          food = cnt + ". " + foodElement.name + " (" + foodElement.quantity + foodElement.unitOfMeasure + ") x" + foodElement.amount + " \n\tDodaci: " + ingredients;
+          //console.log("sekunde: " + this.seconds);
+
+          let timer = Timer.Instance(this, this.seconds);
+
+        },
+        error => {
+          console.log(error);
+        }
+      );
+
+
+    }
+    let food = "";
+    let cnt = 1;
+
+    this.currentDelivery.orderedFood.forEach(foodElement => {
+      let ingredients = "";
+      foodElement.ingredients.forEach(ingredientElement => {
+        if (ingredients == "")
+          ingredients = ingredientElement.name;
         else
-          food += ("\n " + cnt + ". " + foodElement.name + " (" + foodElement.quantity + foodElement.unitOfMeasure + ") x" + foodElement.amount + " \n\tDodaci: " + ingredients);
-        ++cnt;
+          ingredients += (", " + ingredientElement.name);
       });
+      if (food == "")
+        food = cnt + ". " + foodElement.name + " (" + foodElement.quantity + foodElement.unitOfMeasure + ") x" + foodElement.amount + " \n\tDodaci: " + ingredients;
+      else
+        food += ("\n " + cnt + ". " + foodElement.name + " (" + foodElement.quantity + foodElement.unitOfMeasure + ") x" + foodElement.amount + " \n\tDodaci: " + ingredients);
+      ++cnt;
+    });
 
-      this.orderTableModel = { id: this.currentDelivery.id, food: food, timeDelivered: tD, timePosted: tP, timeAccepted:tA, price: this.currentDelivery.price, address: this.currentDelivery.address, comment: this.currentDelivery.comment, delivered: this.currentDelivery.delivered };
-        
+    this.orderTableModel = {
+      id: this.currentDelivery.id, food: food, timeDelivered: tD,
+      timePosted: tP, timeAccepted: tA, price: this.currentDelivery.price, address: this.currentDelivery.address,
+      comment: this.currentDelivery.comment, delivered: this.currentDelivery.delivered, customer: this.currentDelivery.userEmail,
+      deliverer: this.currentDelivery.delivererEmail, status: ""
+    };
 
-      console.log("trnutacna dostava:");
-      console.log(this.orderTableModel);
+
+    //console.log("trnutacna dostava:");
+    //console.log(this.orderTableModel);
+  }
+
+  secondsToHms(d: number) {
+    d = Number(d);
+    var h = Math.floor(d / 3600);
+    var m = Math.floor(d % 3600 / 60);
+    var s = Math.floor(d % 3600 % 60);
+
+    var hDisplay = h.toString();
+    var mDisplay = m.toString();
+    var sDisplay = s.toString();
+    return hDisplay + ":" + mDisplay + ":" + sDisplay;
   }
 
 }
@@ -142,50 +149,25 @@ function delay(delay: number) {
 class Timer {
   private static _instance: Timer;
 
-  private constructor(public orders: CurrentDeliveryComponent, public hours: number, public minutes: number, public seconds: number) {
+  private constructor(public delivery: CurrentDeliveryComponent, public seconds: number) {
     this.doTimer();
   }
-  public static Instance(orders: CurrentDeliveryComponent, hours: number, minutes: number, seconds: number) {
-    if(this._instance == null)
-    {
-      this._instance = new Timer(orders, hours, minutes, seconds);
+  public static Instance(delivery: CurrentDeliveryComponent, seconds: number) {
+    if (this._instance == null) {
+      this._instance = new Timer(delivery, seconds);
     }
     return this._instance;
   }
   async doTimer() {
-    if(this.hours == 0 && this.minutes == 0 && this.seconds == 0){
-      this.orders.delivered = true;
-      return;
-    }
-    while(this.hours != 0 || this.minutes != 0 || this.seconds != 0)
-    {
+    while (this.seconds >= 0) {
+      //console.log(this.seconds);
       await delay(1000);
+      this.delivery.timeWriter = this.delivery.secondsToHms(this.seconds);
+      console.log(this.delivery.timeWriter);
       this.seconds = this.seconds - 1;
-      if(this.seconds == -1)
-      {
-        this.minutes -= 1;
-        this.seconds = 59;
-      }
-      if(this.minutes == -1)
-      {
-        this.hours -=1;
-        this.minutes = 59;
-      }
-      this.orders.timeLeftHours = this.hours;
-      this.orders.timeLeftMinutes = this.minutes;
-      this.orders.timeLeftSeconds = this.seconds;
     }
-    
-    this.orders.delivered = true;
-    /*this.orders.orderService.finishDelivery(this.orders.currentDelivery).subscribe(
-      data=>{
-        console.log("done");
-        this.orders.delivered = true;
-      },
-      error=>{
-        console.log(error);
-      }
-    );*/
+
+    this.delivery.delivered = true;
 
   }
 }

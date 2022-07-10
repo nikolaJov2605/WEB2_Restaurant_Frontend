@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginModel } from '../models/login.model';
 import { TokenModel } from '../models/token.model';
+import { VerificationModel } from '../models/verification.model';
 
 
 @Injectable({
@@ -14,6 +15,10 @@ import { TokenModel } from '../models/token.model';
 export class UserService {
 
   constructor( private http: HttpClient) { }
+
+  getAllDeliverers() : Observable<RegistrationModel[]>{
+    return this.http.get<RegistrationModel[]>(environment.serverURL + '/api/users/all-deliverers');
+  }
 
   register(registrationModel:RegistrationModel) :Observable<Object> {
     return this.http.post<Object>(environment.serverURL + '/api/users/register', registrationModel);
@@ -31,8 +36,20 @@ export class UserService {
     return this.http.post<Object>(environment.serverURL + '/api/users/update-user', registrationModel);
   }
 
-  getUsernameByEmail(email: string) : Observable<UsernameModel> {
+  /*getUsernameByEmail(email: string) : Observable<UsernameModel> {
     return this.http.get<UsernameModel>(environment.serverURL + `/api/users/get-username/${email}`)
+  }*/
+
+  verifyDeliverer(verification: VerificationModel): Observable<boolean> {
+    return this.http.post<boolean>(environment.serverURL + '/api/users/verify-deliverer', verification);
+  }
+
+  unVerifyDeliverer(verification: VerificationModel): Observable<boolean> {
+    return this.http.post<boolean>(environment.serverURL + '/api/users/unverify-deliverer', verification);
+  }
+
+  denyDeliverer(verification: VerificationModel): Observable<boolean> {
+    return this.http.post<boolean>(environment.serverURL + '/api/users/deny-deliverer', verification);
   }
 
 }

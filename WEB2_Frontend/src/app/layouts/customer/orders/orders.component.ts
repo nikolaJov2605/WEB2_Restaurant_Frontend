@@ -76,7 +76,7 @@ export class OrdersComponent implements OnInit {
 
 
       if(element.delivered == true){
-        this.orderTable.push({id: element.id, food: food, timeDelivered: tD, timePosted: tP, timeAccepted: tA, price: element.price, address: element.address, comment: element.comment, delivered: element.delivered})
+        this.orderTable.push({id: element.id, food: food, timeDelivered: tD, timePosted: tP, timeAccepted: tA, price: element.price, address: element.address, comment: element.comment, delivered: element.delivered, customer: element.userEmail, deliverer: element.delivererEmail, status: ""})
         this.orderDataSource.data = this.orderTable;
         console.log(this.orderTable);
       }

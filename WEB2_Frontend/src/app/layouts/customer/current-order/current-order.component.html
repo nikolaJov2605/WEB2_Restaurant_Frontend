@@ -72,10 +72,10 @@
 
                             <td>
                                 <ng-container *ngIf="delivered == true">
-                                    <mat-label style="color: green;"> Dostava je isporučena! </mat-label>
+                                    <mat-label style="color: green;"> Vaša dostava je pristigla! </mat-label>
                                 </ng-container>
-                                <ng-container *ngIf="delivered == false">
-                                    <mat-label> {{timeLeftHours}}:{{timeLeftMinutes}}:{{timeLeftSeconds}}
+                                <ng-container *ngIf="delivered == false && orderTableModel.timeAccepted != ''">
+                                    <mat-label> {{timeWriter}}
                                     </mat-label>
                                 </ng-container>
                                 <ng-container *ngIf="orderTableModel.timeAccepted == ''">
