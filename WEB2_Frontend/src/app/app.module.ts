@@ -69,6 +69,7 @@ export function tokenGetter() {
   providers: [
     //RolesService,
     //NavbarComponent,
+    FileReader,
     CookieService,
     {
        provide: HTTP_INTERCEPTORS,

@@ -9,4 +9,5 @@ export class RegistrationModel{
     verified: boolean = false;
     birthDate: Date = new Date;
     denied: boolean = false;
+    image: any;
 }

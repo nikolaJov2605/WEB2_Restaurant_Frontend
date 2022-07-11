@@ -12,11 +12,13 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router, private jwtHelper: JwtHelperService) { }
+  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router, private jwtHelper: JwtHelperService, private reader: FileReader) { }
 
   username: string = "";
-  user: RegistrationModel = new RegistrationModel;
+  public user: RegistrationModel = new RegistrationModel;
   public userType: string = "";
+
+  public picture: any;
 
   updateProfileForm = new UntypedFormGroup({
     UserName: new UntypedFormControl('', Validators.required),
@@ -46,6 +48,11 @@ export class ProfileComponent implements OnInit {
         //console.log("Evo podaci bajo:");
         //console.log(data);
         this.user = data;
+        let img = new Blob();
+        //this.picture = this.reader.readAsDataURL(data.image);
+        this.picture = this.reader.readAsDataURL(data.image);
+        //this.picture = new File(data.image, "");
+        console.log(this.picture);
         this.userType = data.userType;
         
         this.updateProfileForm.controls['Name'].setValue(this.user.name);

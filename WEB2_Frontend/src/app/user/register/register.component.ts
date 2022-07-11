@@ -23,6 +23,10 @@ export class RegisterComponent implements OnInit {
     UserType: new UntypedFormControl('', Validators.required)
   });
 
+  formData: FormData = new FormData();
+  image: any;
+  fileUploaded: boolean = false;
+
   constructor(public service: UserService, private router: Router, private fomBuilder: UntypedFormBuilder) { }
 
   ngOnInit(): void {
@@ -36,27 +40,69 @@ export class RegisterComponent implements OnInit {
       console.log("Passwd2:" + this.registrationForm.controls['RepeatedPassword'].value);
       return;
     }
-    let regModel = new RegistrationModel();
-    regModel.name = this.registrationForm.controls['Name'].value
-    regModel.lastname = this.registrationForm.controls['LastName'].value
-    regModel.email = this.registrationForm.controls['Email'].value
-    regModel.username = this.registrationForm.controls['UserName'].value
-    regModel.password = this.registrationForm.controls['Password'].value
-    regModel.address = this.registrationForm.controls['Address'].value
-    regModel.birthDate = this.registrationForm.controls['Date'].value
-    regModel.userType = this.registrationForm.controls['UserType'].value
+
+    this.formData.append('name', this.registrationForm.controls['Name'].value);
+    this.formData.append('lastname', this.registrationForm.controls['LastName'].value);
+    this.formData.append('email', this.registrationForm.controls['Email'].value);
+    this.formData.append('username', this.registrationForm.controls['UserName'].value);
+    this.formData.append('password', this.registrationForm.controls['Password'].value);
+    this.formData.append('address', this.registrationForm.controls['Address'].value);
+    this.formData.append('birthDate', this.registrationForm.controls['Date'].value);
+    this.formData.append('userType', this.registrationForm.controls['UserType'].value);
     
 
-    this.service.register(regModel).subscribe(
+    if(this.fileUploaded == true)
+    {
+      if(isImage(this.image.name) == true){
+        this.formData.append('image', this.image);
+      }
+      else{
+        alert("Izaberite sliku za upload!");
+        return;
+      }
+    }
+
+    this.service.register(this.formData).subscribe(
       data =>{
         this.router.navigateByUrl("/user/login");
       },
       error=>{
-        console.log(regModel);
+        console.log(this.formData);
         
         alert('Error.')
       }
     );
   }
 
+  onFileInput(event: any){
+    this.image = event?.target?.files[0];
+    this.fileUploaded = true;
+    /*if(isImage(this.image.name) == true){
+      this.formData.append('image', this.image);
+    }
+    else{
+      alert("Izaberite sliku za upload!");
+      event.target.files[0] = null;
+    }*/
+  }
+
+  
+
+}
+
+function getExtension(filename: string) {
+  var parts = filename.split('.');
+  return parts[parts.length - 1];
+}
+
+function isImage(filename: string) {
+  var ext = getExtension(filename);
+  switch (ext.toLowerCase()) {
+    case 'jpg':
+    case 'bmp':
+    case 'png':
+      //etc
+      return true;
+  }
+  return false;
 }

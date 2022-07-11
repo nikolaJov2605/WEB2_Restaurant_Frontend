@@ -1,6 +1,5 @@
-import { UsernameModel } from './../models/username.model';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { RegistrationModel } from '../models/registration.model';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -20,8 +19,8 @@ export class UserService {
     return this.http.get<RegistrationModel[]>(environment.serverURL + '/api/users/all-deliverers');
   }
 
-  register(registrationModel:RegistrationModel) :Observable<Object> {
-    return this.http.post<Object>(environment.serverURL + '/api/users/register', registrationModel);
+  register(formData:FormData) :Observable<Object> {
+    return this.http.post<Object>(environment.serverURL + '/api/users/register', formData);
   }
 
   login(loginModel: LoginModel) :Observable<TokenModel> {
