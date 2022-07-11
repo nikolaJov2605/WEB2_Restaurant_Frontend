@@ -4,6 +4,8 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +14,7 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router, private jwtHelper: JwtHelperService, private reader: FileReader) { }
+  constructor(private route: ActivatedRoute, private userService: UserService, private router: Router, private jwtHelper: JwtHelperService, private _sanitizer: DomSanitizer) { }
 
   username: string = "";
   public user: RegistrationModel = new RegistrationModel;
@@ -32,9 +34,14 @@ export class ProfileComponent implements OnInit {
     UserType: new UntypedFormControl({value: '', disabled: true})
   });
 
+  imageData: any;  
+  sanitizedImageData: any;  
 
   public verificationStatus: string = "";
 
+  formData: FormData = new FormData();
+  image: any;
+  fileUploaded: boolean = false;
 
   ngOnInit(): void {
     //this.userType = this.updateProfileForm.controls['UserType'].value;
@@ -48,11 +55,6 @@ export class ProfileComponent implements OnInit {
         //console.log("Evo podaci bajo:");
         //console.log(data);
         this.user = data;
-        let img = new Blob();
-        //this.picture = this.reader.readAsDataURL(data.image);
-        this.picture = this.reader.readAsDataURL(data.image);
-        //this.picture = new File(data.image, "");
-        console.log(this.picture);
         this.userType = data.userType;
         
         this.updateProfileForm.controls['Name'].setValue(this.user.name);
@@ -62,6 +64,17 @@ export class ProfileComponent implements OnInit {
         this.updateProfileForm.controls['Address'].setValue(this.user.address);
         this.updateProfileForm.controls['Date'].setValue(this.user.birthDate);
         this.updateProfileForm.controls['UserType'].setValue(this.user.userType);
+
+        this.userService.getUserImage(email).subscribe(
+          data=>{
+            console.log(data);
+            this.picture = data;
+            this.imageData = 'data:image/png;base64,' + this.picture;
+          },
+          error=>{
+            console.log(error);
+          }
+        );
 
         if(this.userType == 'deliverer'){
           if(this.user.denied == true)
@@ -89,30 +102,89 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit(){
-    /*if(this.updateProfileForm.controls['Password'].value != this.updateProfileForm.controls['RepeatedPassword'].value)
-    {
-      alert("Repeated password failed");
-      console.log("Passwd:" + this.updateProfileForm.controls['Password'].value);
-      console.log("Passwd2:" + this.updateProfileForm.controls['RepeatedPassword'].value);
-      return;
-    }*/
-    let regModel = new RegistrationModel();
-    regModel.name = this.updateProfileForm.controls['Name'].value;
-    regModel.lastname = this.updateProfileForm.controls['LastName'].value;
-    regModel.email = this.updateProfileForm.controls['Email'].value;
-    regModel.username = this.updateProfileForm.controls['UserName'].value;
-    //regModel.password = this.updateProfileForm.controls['Password'].value;
-    regModel.address = this.updateProfileForm.controls['Address'].value;
-    regModel.birthDate = this.updateProfileForm.controls['Date'].value;
-    regModel.userType = this.updateProfileForm.controls['UserType'].value;
     
-    this.userService.updateUser(regModel).subscribe(
+    this.formData.append('name', this.updateProfileForm.controls['Name'].value);
+    this.formData.append('lastname', this.updateProfileForm.controls['LastName'].value);
+    this.formData.append('email', this.updateProfileForm.controls['Email'].value);
+    this.formData.append('username', this.updateProfileForm.controls['UserName'].value);
+    this.formData.append('password', this.updateProfileForm.controls['Password'].value);
+    this.formData.append('address', this.updateProfileForm.controls['Address'].value);
+    this.formData.append('birthDate', this.updateProfileForm.controls['Date'].value);
+    this.formData.append('userType', this.updateProfileForm.controls['UserType'].value);
+
+    if(this.fileUploaded == true)
+    {
+      if(isImage(this.image.name) == true){
+        this.formData.append('image', this.image);
+      }
+      else{
+        alert("Izaberite sliku za upload!");
+        return;
+      }
+    }
+
+
+    
+    this.userService.updateUser(this.formData).subscribe(
       data =>{
-        let newPath = "/user/profile/" + regModel.username;
-        this.router.navigateByUrl(newPath);
+        /*let newPath = "/user/profile";// + this.formData.username;
+        this.router.navigateByUrl(newPath);*/
+        const e = localStorage.getItem("email");
+        let email = "";
+        if(e != null)
+          email = e;
+        this.userService.getUserByEmail(email).subscribe(
+          data=>{
+            //console.log("Evo podaci bajo:");
+            //console.log(data);
+            this.user = data;
+            this.userType = data.userType;
+            
+            this.updateProfileForm.controls['Name'].setValue(this.user.name);
+            this.updateProfileForm.controls['LastName'].setValue(this.user.lastname);
+            this.updateProfileForm.controls['Email'].setValue(this.user.email);
+            this.updateProfileForm.controls['UserName'].setValue(this.user.username);
+            this.updateProfileForm.controls['Address'].setValue(this.user.address);
+            this.updateProfileForm.controls['Date'].setValue(this.user.birthDate);
+            this.updateProfileForm.controls['UserType'].setValue(this.user.userType);
+    
+            this.userService.getUserImage(email).subscribe(
+              data=>{
+                console.log(data);
+                this.picture = data;
+                this.imageData = 'data:image/png;base64,' + this.picture;
+              },
+              error=>{
+                console.log(error);
+              }
+            );
+    
+            if(this.userType == 'deliverer'){
+              if(this.user.denied == true)
+              {
+                this.verificationStatus = "ODBIJEN";
+              }
+              if(this.user.verified == false && this.user.denied == false)
+              {
+                this.verificationStatus = "NA ČEKANjU";
+              }
+              if(this.user.verified == true)
+              {
+                this.verificationStatus = "VERIFIKOVAN";
+              }
+            }
+            
+    
+          },
+          error=>{
+            console.log("error");
+            //console.log(this.userType);
+            this.checkClaim();
+          }
+        )
       },
       error=>{
-        console.log(regModel);
+        console.log(this.formData);
         
         alert('Error.')
       }
@@ -141,4 +213,26 @@ export class ProfileComponent implements OnInit {
       }
   }
 
+  onFileInput(event: any){
+    this.image = event?.target?.files[0];
+    this.fileUploaded = true;
+  }
+
+}
+
+function getExtension(filename: string) {
+  var parts = filename.split('.');
+  return parts[parts.length - 1];
+}
+
+function isImage(filename: string) {
+  var ext = getExtension(filename);
+  switch (ext.toLowerCase()) {
+    case 'jpg':
+    case 'bmp':
+    case 'png':
+      //etc
+      return true;
+  }
+  return false;
 }

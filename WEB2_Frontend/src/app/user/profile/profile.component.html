@@ -7,10 +7,8 @@
       <form [formGroup]="updateProfileForm">
         <mat-card-content>
           <picture style="width: 100px; height: 100px">
-            <source media='(min-width:0px)' srcset="https://material.angular.io/assets/img/examples/shiba2.jpg">
-            <img mat-card-image src="" alt="Photo of a Shiba Inu"  style="width: 100px; height: 100px;
-            margin:0 auto;
-            display:block; margin-bottom: 30px;" >
+            <!--source media='(min-width:0px)' srcset="https://material.angular.io/assets/img/examples/shiba2.jpg"-->
+            <img [src]="imageData" class="profile-image">
           </picture>
           <table align="center">
             <tr>
@@ -59,6 +57,12 @@
                       </select>
                     </mat-form-field>
                 </th>
+            </tr>
+            <tr>
+              <th colspan="2" align="center">
+                <mat-label> Slika: </mat-label>
+                <input id='inputfile' type="file" (change)="onFileInput($event)">
+              </th>
             </tr>
             <tr>
                 <th colspan="2" align="center">

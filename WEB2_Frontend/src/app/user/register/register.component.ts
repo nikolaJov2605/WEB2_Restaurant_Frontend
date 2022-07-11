@@ -77,13 +77,6 @@ export class RegisterComponent implements OnInit {
   onFileInput(event: any){
     this.image = event?.target?.files[0];
     this.fileUploaded = true;
-    /*if(isImage(this.image.name) == true){
-      this.formData.append('image', this.image);
-    }
-    else{
-      alert("Izaberite sliku za upload!");
-      event.target.files[0] = null;
-    }*/
   }
 
   

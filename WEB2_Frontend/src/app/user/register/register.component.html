@@ -7,89 +7,92 @@
       <mat-card-content>
         <table align="center">
           <tr>
-              <td>
-                <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
-                  <input matInput placeholder="Korisničko ime" class="form-control" formControlName="UserName">
-                </mat-form-field>
-              </td>
-              <td>
-                <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
-                  <input matInput placeholder="Email" class="form-control"  type="email" formControlName="Email">
-                </mat-form-field>
-              </td>
+            <td>
+              <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
+                <input matInput placeholder="Korisničko ime" class="form-control" formControlName="UserName">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
+                <input matInput placeholder="Email" class="form-control" type="email" formControlName="Email">
+              </mat-form-field>
+            </td>
           </tr>
           <tr>
-              <td>
-                <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
-                  <input matInput placeholder="Lozinka" type="password" class="form-control" formControlName="Password">
-                </mat-form-field>
-              </td>
-              <td>
-                <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
-                  <input matInput placeholder="Ponovite lozinku" type="password" class="form-control" formControlName="RepeatedPassword">
-                </mat-form-field>
-              </td>
-              
+            <td>
+              <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
+                <input matInput placeholder="Lozinka" type="password" class="form-control" formControlName="Password">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
+                <input matInput placeholder="Ponovite lozinku" type="password" class="form-control"
+                  formControlName="RepeatedPassword">
+              </mat-form-field>
+            </td>
+
           </tr>
           <tr>
-              <td>
-                <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
-                  <input matInput placeholder="Ime" class="form-control" formControlName="Name">
-                </mat-form-field>
-              </td>
-              <td>
-                <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
-                  <input matInput placeholder="Prezime" class="form-control" formControlName="LastName">
-                </mat-form-field>
-              </td>
+            <td>
+              <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
+                <input matInput placeholder="Ime" class="form-control" formControlName="Name">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
+                <input matInput placeholder="Prezime" class="form-control" formControlName="LastName">
+              </mat-form-field>
+            </td>
           </tr>
           <tr>
-              <td>
-                <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
-                  <input matInput placeholder="Datum rođenja" type="date" class="form-control" formControlName="Date">
-                </mat-form-field>
-              </td>
-              <td>
-                <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
-                  <input matInput placeholder="Adresa" class="form-control" formControlName="Address">
-                </mat-form-field>
-              </td>
-          </tr>
-          <tr>
-              <th colspan="2" align="center">
-                  <mat-form-field appearance="fill" class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive; width: 100%;">
-                    <mat-label>Tip korisnika:</mat-label>
-                    <select matNativeControl required  class="form-control" formControlName="UserType">
-                      <option value="customer">Kupac</option>
-                      <option value="deliverer">Dostavljač</option>
-                    </select>
-                  </mat-form-field>
-              </th>
+            <td>
+              <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
+                <input matInput placeholder="Datum rođenja" type="date" class="form-control" formControlName="Date">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="example-full-width" style="font-family: Comic Sans MS, Comic Sans, cursive;">
+                <input matInput placeholder="Adresa" class="form-control" formControlName="Address">
+              </mat-form-field>
+            </td>
           </tr>
           <tr>
             <th colspan="2" align="center">
-                <mat-label> Slika: </mat-label>
-                <input id='inputfile' type="file" (change)="onFileInput($event)">
+              <mat-form-field appearance="fill" class="example-full-width"
+                style="font-family: Comic Sans MS, Comic Sans, cursive; width: 100%;">
+                <mat-label>Tip korisnika:</mat-label>
+                <select matNativeControl required class="form-control" formControlName="UserType">
+                  <option value="customer">Kupac</option>
+                  <option value="deliverer">Dostavljač</option>
+                </select>
+              </mat-form-field>
             </th>
-        </tr>
-          <tr>
-              <th colspan="2" align="center">
-                  <!--input type="file" (change)="onFileSelected($event)"-->
-              </th>
           </tr>
           <tr>
-              <th colspan="2" align="center">
-                  <button style="width: 100%; font-family: Comic Sans MS, Comic Sans, cursive;" mat-stroked-button color="primary" type="submit" class="btn-block" (click)="onSubmit()">Registracija</button>
-              </th>
+            <th colspan="2" align="center">
+              <mat-label> Slika: </mat-label>
+              <input id='inputfile' type="file" (change)="onFileInput($event)">
+            </th>
           </tr>
           <tr>
-              <p>Imate nalog? <a routerLink="../login">Prijavite se</a></p>
+            <th colspan="2" align="center">
+              <!--input type="file" (change)="onFileSelected($event)"-->
+            </th>
           </tr>
-          
-      </table>
+          <tr>
+            <th colspan="2" align="center">
+              <button style="width: 100%; font-family: Comic Sans MS, Comic Sans, cursive;" mat-stroked-button
+                color="primary" type="submit" class="btn-block" (click)="onSubmit()">Registracija</button>
+            </th>
+          </tr>
+          <tr>
+            <p>Imate nalog? <a routerLink="../login">Prijavite se</a></p>
+          </tr>
+
+        </table>
       </mat-card-content>
-        
+
     </form>
   </mat-card>
-  
+
 </div>

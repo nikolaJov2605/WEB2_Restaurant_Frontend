@@ -1,3 +1,4 @@
+import { ImageResponseModel } from './../models/image.response.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { RegistrationModel } from '../models/registration.model';
@@ -31,8 +32,8 @@ export class UserService {
     return this.http.get<RegistrationModel>(environment.serverURL + `/api/users/${email}`);
   }
 
-  updateUser(registrationModel:RegistrationModel) :Observable<Object> {
-    return this.http.post<Object>(environment.serverURL + '/api/users/update-user', registrationModel);
+  updateUser(formData:FormData) :Observable<Object> {
+    return this.http.post<Object>(environment.serverURL + '/api/users/update-user', formData);
   }
 
   /*getUsernameByEmail(email: string) : Observable<UsernameModel> {
@@ -49,6 +50,10 @@ export class UserService {
 
   denyDeliverer(verification: VerificationModel): Observable<boolean> {
     return this.http.post<boolean>(environment.serverURL + '/api/users/deny-deliverer', verification);
+  }
+
+  getUserImage(email: string) : Observable<ImageResponseModel> {
+    return this.http.get<ImageResponseModel>(environment.serverURL + `/api/users/image/${email}`);
   }
 
 }
