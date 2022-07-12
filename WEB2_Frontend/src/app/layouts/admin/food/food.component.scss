@@ -50,13 +50,22 @@
     width: 70%;
     margin: auto;
     padding: 10px;
+    padding-bottom: 50px;
 }
 
-table{
+.table{
     margin: 0 auto;
     width: 100%;
+    max-height: 500px;
+    //display: block;
     text-align: center;
     font-family: Comic Sans MS, Comic Sans, cursive;
+}
+
+.wrapper{
+    display: block;
+    overflow-y: scroll;
+    height: 280px;
 }
 
 tr{
@@ -74,4 +83,13 @@ td {
 
 .panel{
     font-family: Comic Sans MS, Comic Sans, cursive;
+}
+
+.btnContainer{
+    width: 100%;
+}
+
+.btnAdd{
+    float: right;
+    margin-right: 20px;
 }

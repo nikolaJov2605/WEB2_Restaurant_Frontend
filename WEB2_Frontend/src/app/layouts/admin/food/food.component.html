@@ -1,15 +1,15 @@
 <div class="content place grid-container">
     <div class="grid-container">
-        <mat-accordion hideToggle>
-            <mat-expansion-panel class="order">
-                <mat-expansion-panel-header class="panel">
-                    <mat-panel-title>Hrana u ponudi</mat-panel-title>
-                    <div><button mat-raised-button color="primary" (click) = "openFoodDialog($event)">Dodaj stavku</button></div>
-                    <!--mat-panel-description>
-                    </mat-panel-description-->
-                </mat-expansion-panel-header>
-                <section class="example-section">
-                    <table mat-table [dataSource]="foodDataSource">
+        <mat-card class="order">
+            <mat-card-header>
+                <mat-card-title> Dodaci u ponudi: </mat-card-title>
+                <div class="btnContainer">
+                    <button mat-raised-button color="primary" (click)="openFoodDialog($event)" class="btnAdd">Dodaj stavku</button>
+                </div>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="wrapper">
+                    <table mat-table [dataSource]="foodDataSource" class="table">
                         <ng-container matColumnDef="id">
                             <th mat-header-cell *matHeaderCellDef style="text-align: center;"> ID </th>
                             <td mat-cell *matCellDef="let element"> {{element.id}} </td>
@@ -34,21 +34,21 @@
                         <tr mat-header-row *matHeaderRowDef="displayedFoodColumnsList;"></tr>
                         <tr mat-row *matRowDef="let element; columns: displayedFoodColumnsList;"></tr>\
                     </table>
-                </section><br>
-            </mat-expansion-panel>
-        </mat-accordion>
+                </div>
+            </mat-card-content>
+        </mat-card>
         <br><br><br>
 
-        <mat-accordion hideToggle>
-            <mat-expansion-panel class="order">
-                <mat-expansion-panel-header class="panel">
-                    <mat-panel-title>Dodaci u ponudi</mat-panel-title>
-                    <button mat-raised-button color="primary" (click) = "openIngredientDialog($event)">Dodaj stavku</button>
-                    <!--mat-panel-description>
-                    </mat-panel-description-->
-                </mat-expansion-panel-header>
-                <section class="example-section">
-                    <table mat-table [dataSource]="ingredientDataSource">
+        <mat-card class="order">
+            <mat-card-header>
+                <mat-card-title> Dodaci u ponudi: </mat-card-title>
+                <div class="btnContainer">
+                    <button mat-raised-button color="primary" (click)="openIngredientDialog($event)" class="btnAdd">Dodaj stavku</button>
+                </div>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="wrapper">
+                    <table mat-table [dataSource]="ingredientDataSource" class="table">
                         <!--['id', 'name', 'quantity', 'unitOfMeasure', 'amount', 'price'];-->
                         <ng-container matColumnDef="id">
                             <th mat-header-cell *matHeaderCellDef style="text-align: center;"> ID </th>
@@ -58,14 +58,13 @@
                             <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Naziv </th>
                             <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                         </ng-container>
-                        
+
                         <tr mat-header-row *matHeaderRowDef="displayedIngredientColumnList;"></tr>
                         <tr mat-row *matRowDef="let element; columns: displayedIngredientColumnList;"></tr>\
                     </table>
-                </section><br>
-            </mat-expansion-panel>
-        </mat-accordion>
+                </div>
+            </mat-card-content>
+        </mat-card>
     </div>
 </div>
-
 <br><br>
