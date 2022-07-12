@@ -294,7 +294,7 @@ export class HomeComponent implements OnInit {
       },
       error => {
         console.log(order);
-          alert('Narudžbina neuspešna.');
+          alert('Narudžbina neuspešna. Morate sačekati da se prethodna narudžbina završi.');
       }
     );
   }

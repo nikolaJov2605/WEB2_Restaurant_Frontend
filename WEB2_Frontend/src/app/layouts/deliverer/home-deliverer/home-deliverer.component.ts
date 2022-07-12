@@ -130,7 +130,7 @@ export class HomeDelivererComponent implements OnInit {
               this.router.navigate(['layouts/deliverer/current-delivery'])
             },
             error=>{
-              alert("Error ocured!");
+              alert("Preuzimanje neuspešno! Morate prvo završiti tekući posao.");
               console.log(error);
             }
           );
