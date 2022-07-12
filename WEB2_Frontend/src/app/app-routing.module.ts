@@ -22,46 +22,49 @@ import { DelivererComponent } from './layouts/deliverer/deliverer.component';
 
 const routes: Routes = [
   { path:'', redirectTo:'user/login', pathMatch:'full' },
-
   {
     path: 'user', component: UserComponent,
     children: [
       { path: 'register', component: RegisterComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'profile', component: ProfileComponent, }
+      { path: 'profile', component: ProfileComponent, canActivate:[AuthGuard], }
     ]
   },
   {
-    path:'layouts', component: LayoutsComponent,
+    path:'layouts', component: LayoutsComponent, canActivate:[AuthGuard],
     children: [
       {
-      path:'customer', component: CustomerComponent,
+      path:'customer', component: CustomerComponent, canActivate:[RolesService], data:{expectedRole: 'customer'},
         children: [
-          { path: '', redirectTo:'home', pathMatch:'full' },
-          { path: 'home', component: HomeComponent, },
-          { path: 'orders', component: OrdersComponent },
-          { path: 'current-order', component: CurrentOrderComponent }
+          { path: '', redirectTo:'home', pathMatch:'full'},
+          { path: 'home', component: HomeComponent, canActivate:[RolesService], data:{expectedRole: 'customer'}},
+          { path: 'orders', component: OrdersComponent, canActivate:[RolesService], data:{expectedRole: 'customer'} },
+          { path: 'current-order', component: CurrentOrderComponent, canActivate:[RolesService], data:{expectedRole: 'customer'} }
         ]
       },
       {
-        path:'deliverer', component: DelivererComponent,
+        path:'deliverer', component: DelivererComponent, canActivate:[RolesService], data:{expectedRole: 'deliverer'},
           children: [
             { path: '', redirectTo:'home', pathMatch:'full' },
-            { path: 'home', component: HomeDelivererComponent },
-            { path: 'my-deliveries', component: DeliveriesComponent },
-            { path: 'current-delivery', component: CurrentDeliveryComponent }
+            { path: 'home', component: HomeDelivererComponent, canActivate:[RolesService], data:{expectedRole: 'deliverer'} },
+            { path: 'my-deliveries', component: DeliveriesComponent, canActivate:[RolesService], data:{expectedRole: 'deliverer'} },
+            { path: 'current-delivery', component: CurrentDeliveryComponent, canActivate:[RolesService], data:{expectedRole: 'deliverer'} }
           ]
       },
       {
-        path: 'admin', component: AdminComponent,
+        path: 'admin', component: AdminComponent, canActivate:[RolesService], data:{expectedRole: 'admin'},
         children: [
           { path: '', redirectTo: 'deliverers', pathMatch: 'full' },
-          { path: 'food', component: FoodComponent },
-          { path: 'orders', component: AdminOrdersComponent },
-          { path: 'deliverers', component: DeliverersComponent },
+          { path: 'food', component: FoodComponent, canActivate:[RolesService], data:{expectedRole: 'admin'} },
+          { path: 'orders', component: AdminOrdersComponent, canActivate:[RolesService], data:{expectedRole: 'admin'} },
+          { path: 'deliverers', component: DeliverersComponent, canActivate:[RolesService], data:{expectedRole: 'admin'} },
         ]
       }
     ]
+  },
+  {
+    path:"**",
+    redirectTo:'user/login'
   },
 ];
 

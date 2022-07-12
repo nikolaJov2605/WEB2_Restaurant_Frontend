@@ -12,22 +12,15 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthGuard implements CanActivate {
 
 
-  constructor(private router: Router, private cookieService:CookieService, private auth: AuthService, private jwtHelper: JwtHelperService) {
+  constructor(private router: Router, private cookieService: CookieService, private auth: AuthService, private jwtHelper: JwtHelperService) {
   }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
-    if (this.auth.isAuthenticated()){
-        // decode the token to get its payload
-      const token = localStorage.getItem("token");
-      if (token && !this.jwtHelper.isTokenExpired(token)){
-        console.log(this.jwtHelper.decodeToken(token))
-     
-      }
+    if (localStorage.getItem('token') != null)
       return true;
-    }
     else {
-      this.router.navigate(['/user/login']);
+      this.router.navigate(['/']);
       return false;
     }
 

@@ -33,9 +33,8 @@ export class LoginComponent implements OnInit {
     //console.log(login.password);
     this.service.login(login).subscribe(
       (data : TokenModel) => {
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('token', JSON.stringify(data.token));
         localStorage.setItem('email', login.email);
-        localStorage.setItem('loaded', 'true');
         //this.router.navigateByUrl('layouts');
         this.checkClaim();
       },

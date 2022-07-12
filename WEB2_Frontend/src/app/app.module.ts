@@ -67,7 +67,7 @@ export function tokenGetter() {
     AdminModule
   ],
   providers: [
-    //RolesService,
+    RolesService,
     //NavbarComponent,
     FileReader,
     CookieService,

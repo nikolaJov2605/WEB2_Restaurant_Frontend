@@ -8,21 +8,26 @@ export class RolesService implements CanActivate
 {  
     constructor(public auth: AuthService, public router: Router) {}  
     
-    canActivate(route: ActivatedRouteSnapshot): boolean {    
-        const expectedRole = route.data['expectedRole'];    
-        const token = JSON.parse(localStorage.getItem('token') || '{}');     // decode the token to get its payload
-        const tokenPayload = this.getDecodedToken(token);  
-        console.log(tokenPayload);
-        if (!this.auth.isAuthenticated() || tokenPayload.role !== expectedRole) {
+    canActivate(route: ActivatedRouteSnapshot): boolean {
+        const expectedRole = route.data['expectedRole'];
+        const token = localStorage.getItem('token') || '{}';     // decode the token to get its payload
+        const tokenPayload = this.getDecodedToken(token);
+        var role = tokenPayload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+        //console.log("role:");
+        //console.log(role);
+        if (!this.auth.isAuthenticated()) {
             console.log(tokenPayload.role);
             this.router.navigate(['user/login']);
               return false;
+        }
+        if(role !== expectedRole){
+            //alert("gledam ulogu...");
+            this.router.navigate(['user/login'])
         }
         return true;
   }
   getDecodedToken(token : string) : any{
       try{
-          console.log(jwt_decode(token));
           return jwt_decode(token);
       }catch(Error){
           return null;

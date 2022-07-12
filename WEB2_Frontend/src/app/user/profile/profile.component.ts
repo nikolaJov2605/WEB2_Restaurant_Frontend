@@ -153,6 +153,7 @@ export class ProfileComponent implements OnInit {
                 console.log(data);
                 this.picture = data;
                 this.imageData = 'data:image/png;base64,' + this.picture;
+                this.fileUploaded = false;
               },
               error=>{
                 console.log(error);
