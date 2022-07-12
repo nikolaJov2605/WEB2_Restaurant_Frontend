@@ -6,59 +6,63 @@
 
     <mat-card-content>
         <div class="wrapper">
-        <table mat-table [dataSource]="userDataSource" class="table">
-            <ng-container matColumnDef="username">
-                <th mat-header-cell *matHeaderCellDef style="text-align: center; width: 6%;"> Korisničko ime </th>
-                <td mat-cell *matCellDef="let element"> {{element.username}} </td>
-            </ng-container>
-            <ng-container matColumnDef="email">
-                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Email </th>
-                <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.email}}
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Ime </th>
-                <td mat-cell *matCellDef="let element"> {{element.name}}
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="lastname">
-                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Prezime </th>
-                <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
-            </ng-container>
-            <ng-container matColumnDef="birthDate">
-                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Datum rođenja </th>
-                <td mat-cell *matCellDef="let element"> {{element.birthDate}} </td>
-            </ng-container>
+            <table mat-table [dataSource]="userDataSource" class="table">
+                <ng-container matColumnDef="username">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center; width: 6%;"> Korisničko ime </th>
+                    <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+                </ng-container>
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Email </th>
+                    <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.email}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Ime </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="lastname">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Prezime </th>
+                    <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
+                </ng-container>
+                <ng-container matColumnDef="birthDate">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Datum rođenja </th>
+                    <td mat-cell *matCellDef="let element"> {{element.birthDate}} </td>
+                </ng-container>
 
-            <ng-container matColumnDef="address">
-                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Adresa </th>
-                <td mat-cell *matCellDef="let element"> {{element.address}} </td>
-            </ng-container>
-            <ng-container matColumnDef="verified">
-                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Verifikovan </th>
-                <td mat-cell *matCellDef="let element">
-                    <div class="text" style="color: green;" *ngIf="element.verified== true">
-                        da
-                    </div>
-                    <div class="text" style="color: red;" *ngIf="element.verified == false">
-                        ne
-                    </div>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="btnVerify">
-                <th mat-header-cell *matHeaderCellDef style="text-align: center;"></th>
-                <td mat-cell *matCellDef="let element">
-                    <button mat-raised-button color="primary" (click)="verify(element)" class="btnVer" *ngIf="element.verified == false">Verifikuj</button>
-                    <button mat-raised-button color="warn" (click)="deny(element)" class="btnVer" *ngIf="element.verified == false && element.denied == false">Odbij</button>
-                    <mat-label *ngIf="element.denied == true && element.verified == false"> (Zahtev odbijen) </mat-label>
-                    <button mat-raised-button color="warn" (click)="unVerify(element)" class="btnVer" *ngIf="element.verified == true">Ukini verifikaciju</button>
-                </td>
-            </ng-container>
+                <ng-container matColumnDef="address">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Adresa </th>
+                    <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+                </ng-container>
+                <ng-container matColumnDef="verified">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Verifikovan </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="text" style="color: green;" *ngIf="element.verified== true">
+                            da
+                        </div>
+                        <div class="text" style="color: red;" *ngIf="element.verified == false">
+                            ne
+                        </div>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="btnVerify">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"></th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-raised-button color="primary" (click)="verify(element)" class="btnVer"
+                            *ngIf="element.verified == false">Verifikuj</button>
+                        <button mat-raised-button color="warn" (click)="deny(element)" class="btnVer"
+                            *ngIf="element.verified == false && element.denied == false">Odbij</button>
+                        <mat-label *ngIf="element.denied == true && element.verified == false"> (Zahtev odbijen)
+                        </mat-label>
+                        <button mat-raised-button color="warn" (click)="unVerify(element)" class="btnVer"
+                            *ngIf="element.verified == true">Ukini verifikaciju</button>
+                    </td>
+                </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedUserColumnsList;"></tr>
-            <tr mat-row *matRowDef="let element; columns: displayedUserColumnsList;"></tr>
-        </table>
-    </div>
+                <tr mat-header-row *matHeaderRowDef="displayedUserColumnsList;"></tr>
+                <tr mat-row *matRowDef="let element; columns: displayedUserColumnsList;"></tr>
+            </table>
+        </div>
     </mat-card-content>
 </mat-card>
 
